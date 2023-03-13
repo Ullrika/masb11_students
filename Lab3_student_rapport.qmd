@@ -11,7 +11,7 @@ abstract: |
   gäller olika grundläggande statistiska test
   - arbeta med kursens Miniprojekt II.
 author: 
-  - name: "Skriv ditt navn här"
+  - name: "Skriv ditt namn här"
     affiliation: "Lunds Universitet"
 date: "`r Sys.Date()`"
 toc: true
@@ -76,7 +76,7 @@ Först vill man undersöka om data från de 7 patienterna stöder vår misstanke
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -87,7 +87,7 @@ Beräkna medelvärdet av mätningarna.
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -98,7 +98,7 @@ Använd rutinen `hypotes` för att illustrera testets kritiska område då teste
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -110,7 +110,7 @@ som är gränsen till området. Hur har $k$ beräknats?
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -121,7 +121,7 @@ Använd ditt beräknade medelvärde för att utföra testet. Vad är din slutsat
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -140,7 +140,7 @@ Undersök hur det kritiska område ändras då du ändrar signifikansnivån till
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -181,7 +181,7 @@ muntorra ($\mu= 0.7$) har en sänkt salivproduktion.
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -192,7 +192,7 @@ Hur många patienter bör vi mäta på om vi med sannolikheten 0.95 verkligen sk
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
