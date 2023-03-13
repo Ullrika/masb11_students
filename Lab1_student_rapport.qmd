@@ -1,0 +1,245 @@
+---
+title: "Fördelningar, simulering och fördelningsanpassning"
+subtitle: "Datorlaboration 1"
+abstract: |
+ Syftet med dagens laboration är att du ska
+  - träna på begreppen täthetsfunktion och fördelningsfunktion
+  - träna på att simulera slumptal från en fördelning
+  - träna på att använda olika grafiska metoder för att undersöka  vilka fördelningar ett datamaterial kan komma från
+author: 
+  - name: "Skriv ditt namn här"
+    affiliation: "Lunds Universitet"
+date: "`r Sys.Date()`"
+toc: true
+number-sections: true
+highlight-style: pygments
+lang: sv
+format: 
+  html:
+    code-fold: false
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=30mm
+  docx: default
+---
+
+## Förberedelseuppgifter{.unnumbered}
+
+> Du måste ha arbetat ordentligt med de väsentligaste begreppen i kapitel 4.1-4.3 i kursboken.  Repetera vid behov begreppen *fördelningsfunktion, sannolikhetsfunktion och täthetsfunktion*samt *normalfördelningen*. Du skall ha gjort följande uppgifter *innan* du kommer till laborationen.
+
+:::{.callout-warning icon=false}
+### Hemuppgift 1
+- Ladda ner R och Rstudio. Har du redan det på datorn, så rekommenderar vi att du uppdaterar den till den senaste versionen. 
+- Orientera dig om \texttt{R} och de olika fönstren som dyker upp när man startar \texttt{RStudio}.  
+- Läs igenom de första sex sidorna i stencilen "Introduktion till R" och kör några kommandon från "Introduktionen". 
+- Information om ett kommando i R fås genom att skriva `?"kommandots namn"`, t.ex. `?mean`. 
+- Vi rekommenderar att du skapar en arbetsmapp där du placerar alla datafiler och R-skript du kommer använda för laborationer och miniprojekt under kursen. Leta fram din arbetsmapp i Files (tryck på ... i övre högra hörnet för att hitta den) och sätt den till ditt working directory genom att trycka på kugghjulet och välja det alternativet. 
+:::
+
+:::{.callout-warning icon=false}
+### Hemuppgift 2
+För att träna på normalfördelningen gör *uppgift 3.81*
+(serumkolesterolhalt hos kvinnor) och *uppgift 3.86* (vikt hos 10-åriga flickor) i arbetsmaterialet.  Fastnar du kan du få hjälp på övning 3.
+:::
+
+:::{.callout-warning icon=false}
+### Hemuppgift 3
+Det är viktigt att skilja *data* (observationerna, mätningarna från ett visst slumpmässigt fenomen) från *modellen* man gör om den slumpmässiga variationen.  I kursen använder vi begreppen *empirisk fördelningsfunktion*, *frekvensfunktion  (täthetsfunktion)*, *stolpdiagram*, *histogram*, *sannolikhetsfunktion* och *fördelningsfunktion*.  
+
+Vilka av dessa hör till "data'" och vilka hör till "modellen"?  Det är också möjligt att para ihop begreppen, så att ett modellbegrepp motsvarar ett annat begrepp för data.  Gör det!
+:::
+
+## Datamaterial jordprov
+
+>I skogsområdet ASA försökspark i Småland är 94 olika gropar grävda i marken och från varje grop är jordprover tagna där bland mycket annat aluminiumhalt och calciumhalt är uppmätta (mg/g).  Data finns i filen `data/lab1_filer/jordprov.Rdata` som innehåller de två variablerna `al` och `ca`.  
+>
+>Öppna filen i RStudio, exempelvis genom att klicka på den under Files.  Du kan se de uppmätta halterna genom att klicka på ikonen längst till höger på raden `jordprov`.  Alternativt skriver du `View(jordprov)` i RStudios konsoll (fönster).
+
+```{r}
+load("data/lab1_filer/jordprov.Rdata")
+# skriv din R-kod här
+```
+
+## Överblick av materialet {.unnumbered}
+
+> Först vill man beräkna några sammanfattande mått för data (medelvärde, min, max, standardavvikelse o.s.v.) och se några översiktsfigurer. För att nå variabeln `al` i datamaterialet `jordprov` skriver du `jordprov$al`.  Kommandot `mean(jordprov$al)` ger dig medelvärdet av aluminiummätningarna.
+
+
+:::{.callout-note icon=false}
+### Uppgift 1.1
+Gör en översiktsanalys av aluminium- och calciumhalterna genom att använda följande funktioner i R: `sd()`, `summary()`, `hist()`, `boxplot()`, `plot()`. Pröva också `plot(jordprov$al,jordprov$ca)`.
+
+Då man har mätningar, $x_{1},  x_{2}, \ldots, x_{n}$, fås mycket information genom att rita upp den s.k. empiriska fördelningsfunktionen (*empirical cumulative distribution function* på engelska).  Datapunkterna, $x_{i}$ sorteras från minsta till största. Andelen datapunkter som är mindre eller lika med $x_{i}$ plottas sedan mot $x_{i}$.  Det blir en växande trapp\-stegs\-funk\-tion som tar ett skutt med höjd $1/n$ för varje data\-punkt.  I R kan du få funktionen utritad genom kommandot `plot.ecdf()`.
+:::
+
+```{r}
+# skriv din R-kod här
+```
+
+<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+:::{.callout-note icon=false}
+### Uppgift 1.2
+Rita ut den empiriska fördelningsfunktionen för aluminiumhalterna.  En grid läggs in i figuren om du skriver `plot.ecdf(jordprov$al,panel.first=grid())`. Använd figuren för att ta reda på hur stor andel av mätningarna som understeg 80 mg/g.  
+:::
+
+**Svar**:
+<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+:::{.callout-note icon=false}
+### Uppgift 1.3
+Vilken aluminiumhalt överstigs i 70% av mätningarna?
+:::
+
+**Svar**:
+<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+
+## Passar någon standardfördelning till mina data? {.unnumbered}
+
+Nu vill vi, med grafiska metoder, undersöka om de två dataseten kan modelleras med några standardfördelningar. Några kontinuerliga standardfördelningar som vi stöter på i kursen är normalfördelningen, lognormalfördelningen, exponentialfördelningen och rektangelfördelningen (likformig fördelning eller på engelska uniform).
+
+![](fig/labb1figur.png)
+
+När du tittar på histogrammet för aluminiumhalter verkar det inte orimligt att de skulle vara normalfördelade, men ett histogram är oftast ett trubbigt instrument då man vill anpassa en standardfördelning till data. En mer använd metod är att rita ut data i ett så kallat fördelningspapper eller QQ-plot. För att illustrera metoden är vi hjälpta av att se hur den fungerar på stickprov där vi verkligen vet fördelningen, vi behöver alltså veta hur man skapar slumptal från olika fördelningar.
+
+## Simulering av slumpvariabler i R
+
+I R finns det färdiga funktioner för simulering från respektive fördelning.  Några exempel på dessa funktioner ser du i tabellen nedan.
+
+| Fördelning | Funktion | Exempel |
+|------------+----------+---------|
+|Normal | `rnorm(antal,mean,stddev)` | `rnorm(20,3,1)` |
+|Exponential | `rexp(antal,1/mean)` | `rexp(50,0.5)` |
+|Rektangel | `runif(antal,min,max)` | `runif(30,-2,5)` |
+|Binomial | `rbinom(antal,n,p)` | `rbinom(10,5,0.2)` |
+|Poisson | `rpois(antal,mean)` | `rpois(25,4)` |
+
+Vill du t.ex. simulera 100 slumptal från en normalfördelning med väntevärde (mean) 20 och standardavvikelse (stddev) 3 och lägga dem i variabeln `norm1` gör du det genom `norm1<-rnorm(100,20,3)`.
+
+:::{.callout-note icon=false}
+### Uppgift 2.1
+Rita ut de 100 normalfördelade slumptalen i `norm1` i ett histogram.  Ser histogrammet ut som den teoretiska normalfördelningen i figuren ovan?  Vad händer om du i stället gör ett histogram på 1000 simulerade normalfördelade slumptal.
+:::
+
+**Svar**:
+<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+:::{.callout-note icon=false}
+### Uppgift 2.2
+Skapa 1000 slumptal från en exponentialfördelning med väntevärde 2 och lägg dem i variabeln `exp1`. Gör ett histogram och jämför med exponentialfördelningens täthetsfunktion som är utritad i figuren ovan.
+:::
+
+:::{.callout-note icon=false}
+### Uppgift 2.3
+Gör samma sak för en rektangelfördelning $R(3,5)$, d.v.s. dra 1000 slumptal (kalla dem unif1), visualisera dem med ett histogram och jämför med den teoretiska täthetsfördelningen.
+:::
+
+```{r}
+
+```
+
+<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+## QQ-plot {.unnumbered}
+
+Ofta har man frågeställningen om data i ett stickprov kan tänkas modelleras med en teoretisk standardfördelning.  Detta gällde t.ex. aluminiumhalterna i marken som du studerade tidigare.  En grafisk metod när man försöker anpassa sina data till en fördelning är att använda sig av en så kallad QQ-plot där Q står för kvantil (quantile). Värdena i datamaterialet jämförs med de man kunde förvänta sig från en viss teoretisk fördelning.  Om data överensstämmer med de förväntade kommer punkterna i en QQ-plot att ligga utmed en rät linje.  Omvänt, om QQ-plotten visar stor avvikelse från en rät linje passar inte den fördelning vi testat med till våra data.  För att pröva om ett stickprov kan tänkas komma från en normalfördelning är kommandot `qqnorm(stickprovsnamn)`.
+
+:::{.callout-note icon=false}
+### Uppgift 2.4
+Pröva hur QQ-plotten ser ut då du anpassar stickprovet med 100
+normalfördelade slumptal (`norm1`) till en normalfördelning genom
+kommandot `qqnorm(norm1)`. Vad händer när du även skriver kommadot `qqline(norm1)`?
+:::
+
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+Eftersom vi vet att `norm1` innehåller normalfördelade slumptal bör anpassningen förstås vara god.  Observera dock att man inte kan kräva en perfekt rät linje i plotten, vi har ju att göra med slumptal. En mindre avvikelse i linjens båda ändar är inte ovanligt.
+
+:::{.callout-note icon=false}
+### Uppgift 2.5
+Hur ser det ut om du försöker anpassa exponentialfördelade slumptal `exp1` eller rektangelfördelade slumptal `unif1` till en normalfördelning genom att använda kommandona `qqnorm(exp1)` respektive `qqnorm(unif1)`.
+:::
+
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+## Modell för aluminiumhalten
+
+Vi tittar på aluminiumhalterna i de 94 jordproverna igen.
+
+:::{.callout-note icon=false}
+### Uppgift 3.1
+Avgör om dessa halter kan modelleras med en normalfördelning. Använd metoden QQ-plot med kommandot `qqnorm(jordprov$al)`. Verkar det vara en god anpassning? 
+:::
+
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+Tidigare har du låtit R beräkna medelvärde och standardavvikelse för aluminiumhalterna.  Dessa värden kan du använda som uppskattningar av väntevärdet $\mu$ och standardavvikelsen $\sigma$ i den anpassade fördelningen.  Om du tyckte att en normalfördelning passade bra till data *kan vi nu sätta upp en modell för våra observationer.*
+
+**Modell**: $X=$ "aluminiumhalten i ett jordprov"; $X$ är normalfördelad med väntevärde $\mu$ och standardavvikelse $\sigma$. Vi skattar dessa parametrar som $\hat{\mu} = m$ ("medelvärdet för data") och $\hat{\sigma} = s$ "standardavvikelse för data").
+
+:::{.callout-note icon=false}
+### Uppgift 3.2
+För in de skattade parametrarna i din modell i R genom att skriva `m <- mean(jordprov\$al)` och `s <- sd(jordprov$al)`. Använd
+
+```r
+hist(jordprov$al,probability=TRUE)
+xx <- seq(40,120,by=0.2)
+lines(xx,dnorm(xx,m,s))
+```
+för att jämföra täthetsfunktion från modellen med histogram för data. 
+
+Med denna modell kan du beräkna sannolikheter och göra förutsägelser
+kring framtida mätningar.  Du kan t.ex. beräkna sannolikheten att en
+ny aluminiummätning kommer att överstiga 80 mg/g.  Eller bestämma den
+Al-halt som kommer att understigas av 10% av kommande mätningar.
+:::
+
+
+:::{.callout-note icon=false}
+### Uppgift 3.3
+Antag att du vill beräkna sannolikheten att aluminiumhalten i ett prov överstiger 80, med andra ord du vill beräkna $P(X > 80)$.  På övningarna har du gjort det med hjälp av räknare och/eller tabell.  I R är kommandot för beräkning av normalfördelningens fördelningsfunktion $P(X \leq x)$ `pnorm()`.  Förklara varför den önskade sannolikheten beräknas med kommandot `1-pnorm(80,m,s)`.
+:::
+
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+:::{.callout-note icon=false}
+### Uppgift 3.4
+Den Al-halt som kommer att understigas av 10% av kommande mätningar är en kvantil i normalfördelningen. Använd R för att beräkna kvantilen med kommandot `quantile`.
+:::
+
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+## Modell för calciumhalten
+
+:::{.callout-note icon=false}
+### Uppgift 4.1
+Pröva med en QQ-plot om även calciumhalterna kan modelleras med en normalfördelning. Ser det bra ut?
+:::
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+En annan standardfördelning som är vanlig för biodata är lognormalfördelningen.  Mätningar kan modelleras med en lognormalfördelning om de **logaritmerade** mätningarna passar bra till en normalfördelning.  Det innebär att det inte behövs någon speciell QQ-plot för denna fördelning, man kan använda `qqnorm(log(stickprovsnamn))`.
+
+:::{.callout-note icon=false}
+### Uppgift 4.2
+Pröva om calciummätningarna verkar vara lognormalfördelade. Ser det bra ut?
+:::
+
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+Nu ska du uppskatta sannolikheten att en calciummätning överstiger 30 mg/g. Först behöver du sätta upp en modell för calciummätvärden. Antag att calciumvärden följer en lognormalfördelning. Sen använder du modellen för att göra beräkningar.
+
+:::{.callout-note icon=false}
+### Uppgift 4.3
+Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y) > \log(30))$. Om $Y$ är lognormalfördelad gäller att $\log(Y)$ är normalfördelad. Sätt upp en modell för log(Y) och skatta dess parametrar. Ange modell och de skattade parametrarna?
+:::
+
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+:::{.callout-note icon=false}
+### Uppgift 4.4
+Beräkna sannolikheten att \texttt{log(calciumhalt)} överstiger \texttt{log(30)}. Ange det kommando du använder för denna beräkning.
+:::
+
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
