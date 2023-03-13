@@ -8,7 +8,7 @@ abstract: |
   - använda CGS i en praktisk situation
   - arbeta med kursens Miniprojekt I
 author: 
-  - name: "Skriv ditt navn här"
+  - name: "Skriv ditt namn här"
     affiliation: "Lunds Universitet"
 date: "`r Sys.Date()`"
 toc: true
@@ -38,7 +38,7 @@ Simulera 1000 slumptal från en rektangelfördelning, $R(0, 1)$ och lägg dem i 
 
 ```{r}
 unif1 <- runif(1000,0,1)
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -49,7 +49,7 @@ Simulera 1000 nya slumptal från en rektangelfördelning, $R(0, 1)$ och lägg de
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -60,7 +60,7 @@ Skapa även variabler `unif3`, `unif4` och `unif5` på motsvarande sätt och stu
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -71,7 +71,7 @@ Skapa även variabler `unif3`, `unif4` och `unif5` på motsvarande sätt och stu
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -82,7 +82,7 @@ Skapa även variabler `unif3`, `unif4` och `unif5` på motsvarande sätt och stu
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -101,7 +101,7 @@ Undersök om antalet celler i blodet är normalfördelat för de båda grupperna
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -112,7 +112,7 @@ Det kan vara intressant att jämföra grupperna genom att bilda differensen mell
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -123,9 +123,9 @@ Det kan vara intressant att jämföra grupperna genom att bilda differensen mell
 :::
 
 ```{r}
-# skriv ditt R kod här
+# skriv din R-kod här
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-> Under laboration 2 vill vi att du fortsätter med Miniprojekt I!
+> Kör (Render) denna fil till en PDF och ladda upp det som en laborationsrapport på Canvas. Forsätt sedan med Miniprojekt I under laboration 2!
