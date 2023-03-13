@@ -45,19 +45,10 @@ För att träna på de grundläggande begreppen i hypotest gör uppgifterna **Di
 För att träna på olika modeller gör **Dig:5.2\_1 och \_2**.
 :::
 
-:::{.callout-warning icon=false}
-### Hemuppgift 3
-Installera de R-rutiner som följer med arbetsmaterialet i Räkna med variation. 
-
-- Gå till https://www.maths.lu.se/forskning/boecker/raekna-med-variation/
-- Ladda ner 'raknaMedVariation.R' och kör filen med `source("raknaMedVariation.R")`
-- För att kunna använda rutinerna behöver du aktivera dem, enklast genom
-att du skriva `library(raknaMedVariation)`. 
-:::
-
 ```{r}
 #| message: false
-library(raknaMedVariation)
+source("kod/hypotes.R")
+source("kod/styrkefkn.R")
 ```
 
 ## Grundläggande begrepp vid hypotestestning
