@@ -1,11 +1,9 @@
 ---
-title: "Pröva på R med Quarto" # detta är kommentaren. 
+title: "Introduktion till att använda R med Quarto" # detta är kommentaren. 
 subtitle: "MASB11 VT 23" # kommentarer kommer inte att synas i rapporten
 author: 
   - name: "Mr. Smith" # det första fältet ska ha ett streck framför
-    affiliation: "Lunds Universitet"
   - name: "Mrs. Smith" # du kan inkludera flera författare
-    affiliation: "LTH"
 date: 2023-01-01 
 execute: 
   echo: true    #använd för att se/dölja R-kod i rapporten
@@ -22,42 +20,55 @@ format:
   docx: default
 ---
 
-<!--detta är tekst kommentaren. det kommer inte att synas i rapporten -->
+<!--detta är textkommentaren. Den kommer inte att synas i rapporten -->
 # Introduktion
 
-Rubriken på detta dokument kallas YAML. Den beskriver inställningarna för dokumentet på ett hierarkiskt sätt. Indraget spelar roll.
+Quarto är ett verktyg för att skapa rapporter genom att kombinera R-kod med text. Ni kommer använda Quarto för att göra laborationer och skapa laborationsrapporter i kursen. Ni uppmanas använda Quarto för de två miniprojekten, men det är inget krav. 
 
-Utforska kommentarerna för att förstå de olika inställningarna. Försök att ändra några inställningar och reproducera (sticka ihop) dokumentet med knappen "Render" i Rstudio.
+Detta är en introduktion till verktyget med exempel på vad man kan göra med Quarto. 
 
-## Köra en R-kommandon och få in resultat i kommandoblock ("chunk")
+Öppna Rstudio och filen "Lab0_provexempel.qmd". 
 
-Skriv din R-kod i detta här område nedanför. Testa att beräkna 3 + 4.
+Rubriken på detta dokument kallas YAML. Den beskriver inställningarna för dokumentet på ett hierarkiskt sätt. Notera att var man placerar text (indraget) i YAML spelar roll för hur det tolkas.
+
+Gå igenom dokumentet och utforska kommentarerna för att förstå de olika inställningarna. Testa ändra några inställningar och reproducera (sticka ihop) dokumentet med knappen "Render" i Rstudio.
+
+## Köra ett R-kommando och få in resultat i ett kommandoblock ("chunk")
+
+Skriv din R-kod i området nedanför. Testa att beräkna 3 + 4. Notera att symbolen # framför en kod avaktiverar koden.
 
 ```{r}
 # skriv här
 
 ```
 
-## Köra en R-kommandon och få in resultat direkt i texten
+Om du skriver 3 + 4 kommer resultatet synas när du renderar och man ser även R-koden.
+
+Du kan dölja R-koden genom att ställa in alternativet `echo` på falskt (`echo: FALSE`). Detta är inställning för just denna del (chunk) och ska börja med `#| `.
+Testa vad som händer om du lägger till `#| echo: FALSE`och stickar ihop dokumentet på nytt. 
+
+Notera att det även går att ändra inställningar för hela dokumentet (globalt), vilket är relevant för miniprojekten. 
+
+## Köra ett R-kommando och få in resultat direkt i texten
 
 I det dokument som skapas ser man fortfarande resultatet från 3 + 4 som 
 
 [1] 7 
 
-Föreställ dig en situation där du i din rapport text ska skriva in resultatet från denna beräkning. Först måste du spara resultatet i en variabel, låt oss kalla den "sju".
+Föreställ dig en situation där du i din rapport text ska skriva in resultatet från denna beräkning. Först måste du spara resultatet i en variabel, låt oss kalla den "resultat".
 
-Sen skriver du en text i vilken du hänvisar till "sju". För att programmet ska veta att du sju är en variabel inne i R, skriver du ett r framför variabeln i texten 
+Sen skriver du en text i vilken du hänvisar till "resultat". För att programmet ska veta att resultat är en variabel inne i R, skriver du ett r framför variabeln i texten. 
 
 Sticka ihop dokumentet och då bör du på den platsen i dokumentet se följande
 
 ```{r}
 #| echo: false
-sju <- 3 + 4
+resultat <- 3 + 4
 ```
 
-Om man lägger ihop 3 och 4 får man `r sju`. 
+Om man lägger ihop 3 och 4 får man `r resultat`. 
 
-Observera att vi ställer in alternativet `echo` på falskt. Dessa inställningar ändrar globala alternativ och gäller endast för denna del. Chunk-inställningarna bör börja med `#| `.
+## Göra beräkningar och implementera resultat i text
 
 Du kan också utföra mer komplexa beräkningar i text.
 
@@ -86,7 +97,7 @@ Testa att få fram följande text genom att ställa dig på en tom rad någonsta
 
 ### Grekiska bokstäverna {.unnumbered}
 
-$\mu$, $\sigma$ och $\alpha$. Stora bokstäver skrivs så här $\Theta$ och $\Sigma$.
+$\mu$, $\sigma$ och $\alpha$. 
 
 ### Skriv ett uttryck med nedsänkt/upphöjd text {.unnumbered}
 
@@ -107,5 +118,8 @@ $\sum_{i=1}^{n} x_i$ eller $\prod_{i=1}^N k_i$
 ### Skapa ett uttryck som är en kvot {.unnumbered}
 
 $\frac{1}{n}$
+
+### Skriv de uttryck som finns på tavlan (i labbsalen)
+
 
 
