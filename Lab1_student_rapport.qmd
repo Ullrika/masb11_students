@@ -24,32 +24,6 @@ format:
   docx: default
 ---
 
-## Förberedelseuppgifter{.unnumbered}
-
-> Du måste ha arbetat ordentligt med de väsentligaste begreppen i kapitel 4.1-4.3 i kursboken.  Repetera vid behov begreppen *fördelningsfunktion, sannolikhetsfunktion och täthetsfunktion*samt *normalfördelningen*. Du skall ha gjort följande uppgifter *innan* du kommer till laborationen.
-
-:::{.callout-warning icon=false}
-### Hemuppgift 1
-- Ladda ner R och Rstudio. Har du redan det på datorn, så rekommenderar vi att du uppdaterar den till den senaste versionen. 
-- Orientera dig om \texttt{R} och de olika fönstren som dyker upp när man startar \texttt{RStudio}.  
-- Läs igenom de första sex sidorna i stencilen "Introduktion till R" och kör några kommandon från "Introduktionen". 
-- Information om ett kommando i R fås genom att skriva `?"kommandots namn"`, t.ex. `?mean`. 
-- Vi rekommenderar att du skapar en arbetsmapp där du placerar alla datafiler och R-skript du kommer använda för laborationer och miniprojekt under kursen. Leta fram din arbetsmapp i Files (tryck på ... i övre högra hörnet för att hitta den) och sätt den till ditt working directory genom att trycka på kugghjulet och välja det alternativet. 
-:::
-
-:::{.callout-warning icon=false}
-### Hemuppgift 2
-För att träna på normalfördelningen gör *uppgift 3.81*
-(serumkolesterolhalt hos kvinnor) och *uppgift 3.86* (vikt hos 10-åriga flickor) i arbetsmaterialet.  Fastnar du kan du få hjälp på övning 3.
-:::
-
-:::{.callout-warning icon=false}
-### Hemuppgift 3
-Det är viktigt att skilja *data* (observationerna, mätningarna från ett visst slumpmässigt fenomen) från *modellen* man gör om den slumpmässiga variationen.  I kursen använder vi begreppen *empirisk fördelningsfunktion*, *frekvensfunktion  (täthetsfunktion)*, *stolpdiagram*, *histogram*, *sannolikhetsfunktion* och *fördelningsfunktion*.  
-
-Vilka av dessa hör till "data'" och vilka hör till "modellen"?  Det är också möjligt att para ihop begreppen, så att ett modellbegrepp motsvarar ett annat begrepp för data.  Gör det!
-:::
-
 ## Datamaterial jordprov
 
 >I skogsområdet ASA försökspark i Småland är 94 olika gropar grävda i marken och från varje grop är jordprover tagna där bland mycket annat aluminiumhalt och calciumhalt är uppmätta (mg/g).  Data finns i filen `data/lab1_filer/jordprov.Rdata` som innehåller de två variablerna `al` och `ca`.  
@@ -232,7 +206,7 @@ Nu ska du uppskatta sannolikheten att en calciummätning överstiger 30 mg/g. F�
 
 :::{.callout-note icon=false}
 ### Uppgift 4.3
-Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y) > \log(30))$. Om $Y$ är lognormalfördelad gäller att $\log(Y)$ är normalfördelad. Sätt upp en modell för log(Y) och skatta dess parametrar. Ange modell och de skattade parametrarna?
+Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y) > \log(30))$. Om $Y$ är lognormalfördelad gäller att $\log(Y)$ är normalfördelad. Sätt upp en modell för $log(Y)$ och skatta dess parametrar. Ange modell och de skattade parametrarna?
 :::
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
