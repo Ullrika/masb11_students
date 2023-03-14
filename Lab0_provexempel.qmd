@@ -1,0 +1,111 @@
+---
+title: "Pröva på R med Quarto" # detta är kommentaren. 
+subtitle: "MASB11 VT 23" # kommentarer kommer inte att synas i rapporten
+author: 
+  - name: "Mr. Smith" # det första fältet ska ha ett streck framför
+    affiliation: "Lunds Universitet"
+  - name: "Mrs. Smith" # du kan inkludera flera författare
+    affiliation: "LTH"
+date: 2023-01-01 
+execute: 
+  echo: true    #använd för att se/dölja R-kod i rapporten
+number-sections: true #sektioner kan numreras automatiskt
+highlight-style: pygments # pröva annat https://quarto.org/docs/output-formats/html-code.html#highlighting
+lang: sv # detta kommer att gör till att all datum är på Svenska
+language: sv_language.yml # detta kommer att gör till att all text är på Svenska
+format: 
+  html:
+    theme: cosmo # pröva annat https://quarto.org/docs/output-formats/html-themes.html
+    toc: true     #använd för att se innehållsförteckning
+    code-fold: false # 
+  pdf: default
+  docx: default
+---
+
+<!--detta är tekst kommentaren. det kommer inte att synas i rapporten -->
+# Introduktion
+
+Rubriken på detta dokument kallas YAML. Den beskriver inställningarna för dokumentet på ett hierarkiskt sätt. Indraget spelar roll.
+
+Utforska kommentarerna för att förstå de olika inställningarna. Försök att ändra några inställningar och reproducera (sticka ihop) dokumentet med knappen "Render" i Rstudio.
+
+## Köra en R-kommandon och få in resultat i kommandoblock ("chunk")
+
+Skriv din R-kod i detta här område nedanför. Testa att beräkna 3 + 4.
+
+```{r}
+# skriv här
+
+```
+
+## Köra en R-kommandon och få in resultat direkt i texten
+
+I det dokument som skapas ser man fortfarande resultatet från 3 + 4 som 
+
+[1] 7 
+
+Föreställ dig en situation där du i din rapport text ska skriva in resultatet från denna beräkning. Först måste du spara resultatet i en variabel, låt oss kalla den "sju".
+
+Sen skriver du en text i vilken du hänvisar till "sju". För att programmet ska veta att du sju är en variabel inne i R, skriver du ett r framför variabeln i texten 
+
+Sticka ihop dokumentet och då bör du på den platsen i dokumentet se följande
+
+```{r}
+#| echo: false
+sju <- 3 + 4
+```
+
+Om man lägger ihop 3 och 4 får man `r sju`. 
+
+Observera att vi ställer in alternativet `echo` på falskt. Dessa inställningar ändrar globala alternativ och gäller endast för denna del. Chunk-inställningarna bör börja med `#| `.
+
+Du kan också utföra mer komplexa beräkningar i text.
+
+```{r}
+x <- 1:10
+x
+```
+
+Variabeln `x` innehåller en vektor av tal. Medelvärdet för denna vektor är `r mean(x)` och variansen är `r var(x)`.
+
+I mallen finns det flera ställen som resultat används i text. Studera några av dem. Lägg märke till att värdet ibland kan avrundats till 2 eller 3 decimaler med `r round(var(x),2)`.
+
+## Skriva matematiska formler såsom modell och hypoteser 
+
+Matematiska formler skrivs med hjälp av MathJax (typ LaTeX). På samma sätt som symbolen r markerar när något är en kod eller variabler i R, markeras LaTeX text av dollartecken för och efter utrycket (t. ex. $f$). Använd två dollartecken före och efter för att få ett matematiskt uttryck som är på en egen rad.
+
+$$
+E=mc^2
+$$
+
+:::{.callout-tip}
+Kolla i rapportmallen hur vi har gjort
+:::
+
+Testa att få fram följande text genom att ställa dig på en tom rad någonstans i QMD-filen eller öppna ett nytt QMD dokument och skriva uttryck med LaTeX/MathJax. Gå till File och välj New File > Quarto Document. 
+
+### Grekiska bokstäverna {.unnumbered}
+
+$\mu$, $\sigma$ och $\alpha$. Stora bokstäver skrivs så här $\Theta$ och $\Sigma$.
+
+### Skriv ett uttryck med nedsänkt/upphöjd text {.unnumbered}
+
+$x_1$ eller $y_i$
+
+Du kan gör mer än en symbol nedsänkt, t.ex. $X_{gruppA}$ eller $Y_{ij}$.
+
+:::{.callout-tip}
+För att få mer än en sak nedänkt behöver man sätta det som ska sänkas ned inom klammerparentes
+:::
+
+Skriv ett uttryck med upphöjd text som $x^2$ eller $\sigma^2$. Likaså kan flera symboler höjas $e^{-\beta x}$. Ta gärna med mellanslag mellan symbolerna för läsbarhet
+
+### Skapar man uttryck med en summa/produkt {.unnumbered}
+
+$\sum_{i=1}^{n} x_i$ eller $\prod_{i=1}^N k_i$
+
+### Skapa ett uttryck som är en kvot {.unnumbered}
+
+$\frac{1}{n}$
+
+
