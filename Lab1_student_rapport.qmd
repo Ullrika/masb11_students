@@ -14,6 +14,7 @@ toc: true
 number-sections: true
 highlight-style: pygments
 lang: sv
+language: sv_language.yml # detta kommer att gör till att all text är på Svenska
 format: 
   html:
     code-fold: false

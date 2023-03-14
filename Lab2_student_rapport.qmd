@@ -15,6 +15,7 @@ toc: true
 number-sections: true
 highlight-style: pygments
 lang: sv
+language: sv_language.yml # detta kommer att gör till att all text är på Svenska
 format: 
   html:
     code-fold: true
@@ -24,6 +25,29 @@ format:
       - left=30mm
   docx: default
 ---
+
+## Förberedelseuppgifter {.unnumbered}
+
+Du måste ha arbetat ordentligt med de väsentligaste begreppen i kapitel 4.5 och 5.1 i kursboken.   Repetera vid behov begreppen *normalfördelning, väntevärde och varians för en summa (eller   medelvärde) av oberoende slumpvariabler*. 
+
+Du skall ha gjort följande uppgifter **innan** du kommer till laborationen.
+
+
+:::{.callout-warning icon=false}
+### Hemuppgift 1
+Gör **Dig:3.3.2\_5** och **3.96** och **Dig:3.4.5\_1** på övning 5.
+:::
+
+:::{.callout-warning icon=false}
+### Hemuppgift 2
+Försök att med egna ord beskriva vad centrala gränsvärdessatsen säger.
+:::
+
+:::{.callout-warning icon=false}
+### Hemuppgift 2
+Repetera vad du gjorde vid laboration 1 och vilka metoder du använder för att simulera slumptal och för att anpassa en fördelning till data. 
+:::
+
 
 ## Centrala gränsvärdessatsen
 
