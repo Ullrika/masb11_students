@@ -54,7 +54,7 @@ Se till att boxen **use tinytex when compiling .tex files** är ifylld.
 
 Installation av TinyTeX kan ta en stund. När den är installerad tryck på den svarta nedåtpekande pilen till höger om Render-symbolen. Välj "Render PDF". 
 
-Om allt går som det ska ska det öppnas ett pdf-dokument i en pdf-läsare. Om inte, kontakta instruktör. 
+Om allt går som det ska ska det öppnas ett pdf-dokument i en pdf-läsare. Om inte, kontakta instruktör.  
 
 ## Stickning av .Rmd till Word 
 
@@ -149,7 +149,13 @@ $\sum_{i=1}^{n} x_i$ eller $\prod_{i=1}^N k_i$
 
 $\frac{1}{n}$
 
-### Skriv de uttryck som finns på tavlan (i labbsalen)
+### Skriv in nya uttryck
+
+Laborations-handledare har skrivit upp några uttryck på tavlan.
+
+Du kan också hitta dem här https://canvas.education.lu.se/courses/22549/pages/lab-1-uttryck
+
+Försök att producera uttrycken i detta dokument
 
 
 
