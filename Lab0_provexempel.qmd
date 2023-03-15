@@ -3,7 +3,6 @@ title: "Introduktion till att använda R med Quarto" # detta är kommentaren.
 subtitle: "MASB11 VT 23" # kommentarer kommer inte att synas i rapporten
 author: 
   - name: "Mr. Smith" # det första fältet ska ha ett streck framför
-  - name: "Mrs. Smith" # du kan inkludera flera författare
 date: 2023-01-01 
 execute: 
   echo: true    #använd för att se/dölja R-kod i rapporten
@@ -39,7 +38,8 @@ För att kunna göra pdf-filer behövs något som heter LaTeX i ditt system.
 
 TinyTeX är den minimala installationen av LaTeX som är tillräcklig för att producera PDF-rapporter från R. De flesta av er kan behöva installera tinytex för att kunna skapa pdf med systemet latex. Kör följande kommandon.
 
-```{r, eval=FALSE}
+```{r}
+#|eval: false
 install.packages("tinytex")
 tinytex::install_tinytex()
 ```
@@ -149,11 +149,11 @@ $\sum_{i=1}^{n} x_i$ eller $\prod_{i=1}^N k_i$
 
 $\frac{1}{n}$
 
-### Skriv in nya uttryck
+### Skriv in nya uttryck {.unnumbered}
 
 Laborations-handledare har skrivit upp några uttryck på tavlan.
 
-Du kan också hitta dem här https://canvas.education.lu.se/courses/22549/pages/lab-1-uttryck
+Du kan också hitta dem här [länk till sida i canvas]( https://canvas.education.lu.se/courses/22549/pages/lab-1-uttryck)
 
 Försök att producera uttrycken i detta dokument
 
