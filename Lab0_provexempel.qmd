@@ -27,11 +27,41 @@ Quarto är ett verktyg för att skapa rapporter genom att kombinera R-kod med te
 
 Detta är en introduktion till verktyget med exempel på vad man kan göra med Quarto. 
 
-Öppna Rstudio och filen "Lab0_provexempel.qmd". 
+Öppna Rstudio och filen `Lab0_provexempel.qmd`. 
 
 Rubriken på detta dokument kallas YAML. Den beskriver inställningarna för dokumentet på ett hierarkiskt sätt. Notera att var man placerar text (indraget) i YAML spelar roll för hur det tolkas.
 
 Gå igenom dokumentet och utforska kommentarerna för att förstå de olika inställningarna. Testa ändra några inställningar och reproducera (sticka ihop) dokumentet med knappen "Render" i Rstudio.
+
+## Stickning av .Rmd till PDF 
+
+För att kunna göra pdf-filer behövs något som heter LaTeX i ditt system. 
+
+TinyTeX är den minimala installationen av LaTeX som är tillräcklig för att producera PDF-rapporter från R. De flesta av er kan behöva installera tinytex för att kunna skapa pdf med systemet latex. Kör följande kommandon.
+
+```{r, eval=FALSE}
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+
+Ställ in hur pdf-filer genereras i Rstudio genom att gå in på 
+
+**Tools > Global options > Sweave**
+
+Se till att boxen **use tinytex when compiling .tex files** är ifylld.
+
+![](fig/tickbox.png)
+
+Installation av TinyTeX kan ta en stund. När den är installerad tryck på den svarta nedåtpekande pilen till höger om Render-symbolen. Välj "Render PDF". 
+
+Om allt går som det ska ska det öppnas ett pdf-dokument i en pdf-läsare. Om inte, kontakta instruktör. 
+
+## Stickning av .Rmd till Word 
+
+R kan också göra dina dokument till Word! Tryck på den svarta nedåtpekande pilen till höger om Knit-symbolen. Välj "Render MS Word". 
+
+Om allt går som det ska ska det skapas ett docx-dokument under samma namn (t.ex `Lab0_provexempel.docx`). Om inte, kontakta instruktör.
+
 
 ## Köra ett R-kommando och få in resultat i ett kommandoblock ("chunk")
 
