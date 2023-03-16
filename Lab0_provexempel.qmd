@@ -36,13 +36,7 @@ Gå igenom dokumentet och utforska kommentarerna för att förstå de olika inst
 
 För att kunna göra pdf-filer behövs något som heter LaTeX i ditt system. 
 
-TinyTeX är den minimala installationen av LaTeX som är tillräcklig för att producera PDF-rapporter från R. De flesta av er kan behöva installera tinytex för att kunna skapa pdf med systemet latex. Kör följande kommandon.
-
-```{r}
-#|eval: false
-install.packages("tinytex")
-tinytex::install_tinytex()
-```
+TinyTeX är den minimala installationen av LaTeX som är tillräcklig för att producera PDF-rapporter från R. 
 
 Ställ in hur pdf-filer genereras i Rstudio genom att gå in på 
 
