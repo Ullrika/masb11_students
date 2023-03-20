@@ -49,7 +49,7 @@ Repetera vad du gjorde vid laboration 1 och vilka metoder du använder för att 
 :::
 
 
-## Centrala gränsvärdessatsen
+# Centrala gränsvärdessatsen
 
 > Adderar man (eller beräknar medelvärdet) av flera oberoende normalfördelade slumpvariabler är summan också normalfördelad. Men vad händer om man lägger ihop flera variabler som alla är rektangelfördelade? Vilken fördelning fås om man adderar exponentialfördelade variabler?
 >
@@ -111,7 +111,7 @@ Skapa även variabler `unif3`, `unif4` och `unif5` på motsvarande sätt och stu
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## CGS i praktiken
+# CGS i praktiken
 
 > På 35 patienter med Hodgkins sjukdom mätte man antalet T4 celler i blodet (antal/mm3). Samtidigt mätte man motsvarande antal hos 35 patienter som hade andra sjukdomar (Non-Hodgkins). Data ligger i filen `data/lab2_mini1_filer/Hodgkindata.RData`. Läs in data med `load()`. Du har nu fått två nya variabler Hodgkin och NonHodgkin.
 

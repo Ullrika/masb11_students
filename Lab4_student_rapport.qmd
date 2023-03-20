@@ -39,7 +39,7 @@ Gör uppgift 6.10 i arbetsmaterialet.
 
 # Introduktion - regressionsanalys i R {.unnumbered}
 
-## Längd och ålder hos torskar
+# Längd och ålder hos torskar 
 
 > För 10 torskar har vi värden på variablerna Längd (cm) och Ålder (år).
 
@@ -72,7 +72,7 @@ plot(torskar$Ålder, torskar$Längd)
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Korrelationsanalys av samband mellan längd och ålder hos torskar
+# Korrelationsanalys av samband mellan längd och ålder hos torskar
 
 > Vi börjar med att beskriva sambandet mellan variablerna med hjälp av korrelationskoefficienten.  
 
@@ -88,7 +88,7 @@ cor.test(torskar$Ålder, torskar$Längd)
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Enkel linjär regression för samband mellan längd och ålder hos torskar
+# Enkel linjär regression för samband mellan längd och ålder hos torskar
 
 > Vi skall nu undersöka hur sambandet mellan variablerna ser ut genom att anpassa en rät linje till data.  Kommandot lm(y ~ x) anpassar en linjär modell för den beroende variabeln `y` som funktion av en eller flera förklarande variabler `x` (lm är förkortning av linear model).  Sedan kan vi få ut olika egenskaper hos modellen och skattningarna med ytterligare kommandon
 
@@ -185,7 +185,7 @@ plot(torskar$Ålder, res)
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Regressionsanalys av samband mellan koncentration och absorbans
+# Regressionsanalys av samband mellan koncentration och absorbans
 
 I laborationen "Proteinbestämning enligt Bradford-metoden" i kursen cellbiologi undersöktes absorbansen hos prov med olika spädningar av Bovint Serum Albumin (BSA)-standard.  Prov med 0--10 $\mu$g protein spädes till 100 $\mu$l med vatten och två prover förberedes per koncentration.
 

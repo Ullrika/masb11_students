@@ -52,7 +52,7 @@ source("kod/hypotes.R")
 source("kod/styrkefkn.R")
 ```
 
-## Grundläggande begrepp vid hypotestestning
+# Grundläggande begrepp vid hypotestestning
 
 > Läkemedel kan ge en nedsatt salivkörtelfunktion, vilket är en riskfaktor för karies och andra sjukdomar i munhålan.  På 7 slumpmässigt utvalda patienter som alla fick samma medicin mätte man under 5 minuter den så kallade tuggstimulerade saliven.  Normal mängd saliv under dessa förhållanden är 1 ml/min och muntorrhet anses föreligga när mängden saliv understiger 0.7 ml/min.  Som modell antog man att salivmängden är normalfördelad med väntevärde $\mu$ och standardavvikelse $\sigma$, där $\sigma$ anses vara 0.5 ml/min. Intressanta frågeställningar är t.ex.:
 > 
@@ -137,12 +137,15 @@ Undersök hur det kritiska område ändras då du ändrar signifikansnivån till
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Testets styrka och styrkefunktion
+# Testets styrka och styrkefunktion
 
-> Antag nu att genomsnittlig salivutsöndring i riskgruppen är 0.8.  Då är förstås $H_0: \mu = 1$ falsk och vi vill att vårt test ska upptäcka detta och förkasta denna hypotes till förmån för hypotesen $H_1: \mu < 1$.  Sannolikheten att testet verkligen klarar av detta kallas för testets styrka i punkten 0.8.  Använd rutinen `hypotes`  för att illustrera testets styrka i punkten 0.8.  Kommandot är nu `hypotes(`$\sigma$, $n$, $\mu_0$, $\alpha$, H1-riktn, sant $\mu$`)`, så i detta fall skriver du `hypotes(0.5, 7, 1, 0.05, '<', 0.8)`.
+> Antag nu att genomsnittlig salivutsöndring i riskgruppen är 0.8.  Då är förstås $H_0: \mu = 1$ falsk och vi vill att vårt test ska upptäcka detta och förkasta denna hypotes till förmån för hypotesen $H_1: \mu < 1$.  Sannolikheten att testet verkligen klarar av detta kallas för testets styrka i punkten 0.8.  Använd rutinen `hypotes`  för att illustrera testets styrka i punkten 0.8.  Kommandot är nu `hypotes(`$\sigma$, $n$, $\mu_0$, $\alpha$, H1-riktn, sant $\mu$`)`, så i detta fall skriver du `hypotes1(0.5, 7, 1, 0.05, '<', 0.8)`.
 
 ```{r}
-hypotes(0.5, 7, 1, 0.05, '<', 0.8)
+#| fig-width: 7
+#| fig-height: 7
+#| out-width: 80%
+hypotes1(0.5, 7, 1, 0.05, '<', 0.8)
 ```
 
 :::{.callout-note icon=false}
@@ -156,11 +159,14 @@ $$
 
 Observera att styrkan beror på värdet $\mu$. I detta exempel gäller att ju mindre $\mu$ är i förhållande till $\mu_0= 1$ desto större är chansen att testet ska upptäcka att $H_0$ inte gäller. Därför  är det intressant att studera styrkan som en funktion av $\mu$, denna funktion betecknas ofta $S(\mu)$.
 
-Rutinen \texttt{styrkefkn} ritar upp styrkefunktionen, kommandot är \texttt{styrkefkn($\sigma$, $n$,   $\mu_0$, $\alpha$, H1-riktn, sant $\mu$)} om du vill rita upp funktionen och markera ett speciellt $\mu$-värde.  Använd alltså kommandot `styrkefkn(0.5, 7, 1, 0.05, '<', 0.8)`, vilket ger dig den tidigare figuren plus styrkan som en funktion av $\mu$.
+Rutinen \texttt{styrkefkn} ritar upp styrkefunktionen, kommandot är \texttt{styrkefkn($\sigma$, $n$,   $\mu_0$, $\alpha$, H1-riktn, sant $\mu$)} om du vill rita upp funktionen och markera ett speciellt $\mu$-värde.  Använd alltså kommandot `styrka1(0.5, 7, 1, 0.05, '<', 0.8)`, vilket ger dig den tidigare figuren plus styrkan som en funktion av $\mu$.
 :::
 
 ```{r}
-styrkefkn(0.5, 7, 1, 0.05, '<', 0.8)
+#| fig-width: 7
+#| fig-height: 7
+#| out-width: 80%
+styrka1(0.5, 7, 1, 0.05, '<', 0.8)
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -207,7 +213,7 @@ Hur många patienter bör vi mäta på om vi med sannolikheten 0.95 verkligen sk
 
 > Kortfattade svar till frågorna som ställs i uppgifterna finns i slutet på denna del av handledningen.  Datamaterialen som används är albumin, bladklorofyll och dammar, vilka du hittar på Canvas.
 
-## Test av väntevärde i en population (t-test)
+# Test av väntevärde i en population (t-test)
 
 > Använd datamaterialet `data/lab3_mini2_filer/albumin.RData`.  En blandning av blodserum innehåller exakt 42 g albumin per liter. Två laboratorier (A och B) får göra sex bestämningar var av koncentrationen.  Vi vill undersöka om det finns någon systematisk avvikelse från det sanna värdet (42 g/l). 
 
@@ -247,7 +253,7 @@ t.test(AlbuminB, mu=42, alternative="greater")
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 
-## Jämförelse av väntevärden i två populationer (t-test vid  två oberoende stickprov)
+# Jämförelse av väntevärden i två populationer (t-test vid  två oberoende stickprov)
 
 > Alger i `data/lab3_mini2_filer/alger.RData` fick växa under ljusa respektive mörka förhållanden och därefter mättes klorofyllhalt.
 
@@ -304,7 +310,7 @@ t.test(Alger$Klorofyll ~ Alger$Grupp, var.equal=TRUE)
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Test vid matchade data (stickprov i par)
+# Test vid matchade data (stickprov i par)
 
 > I filen `data/lab3_mini2_filer/dammar.RData` finns mätningar av kvävebelastning vår respektive sommar på ett antal dammar.  Om man vill jämföra kvävebelastningen mellan de två årstiderna är en rimlig modell "stickprov i par".  För att tala om för `t.test` att data är matchade används kommandot `t.test(Dammar$N_belast_V, Dammar$N_belast_S, paired=TRUE)`
 

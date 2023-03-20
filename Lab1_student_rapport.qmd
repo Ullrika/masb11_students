@@ -25,7 +25,7 @@ format:
   docx: default
 ---
 
-## Datamaterial jordprov
+## Datamaterial jordprov {.unnumbered}
 
 >I skogsområdet ASA försökspark i Småland är 94 olika gropar grävda i marken och från varje grop är jordprover tagna där bland mycket annat aluminiumhalt och calciumhalt är uppmätta (mg/g).  Data finns i filen `data/lab1_filer/jordprov.Rdata` som innehåller de två variablerna `al` och `ca`.  
 >
@@ -36,7 +36,7 @@ load("data/lab1_filer/jordprov.Rdata")
 # skriv din R-kod här
 ```
 
-## Överblick av materialet {.unnumbered}
+# Överblick av datamaterialet 
 
 > Först vill man beräkna några sammanfattande mått för data (medelvärde, min, max, standardavvikelse o.s.v.) och se några översiktsfigurer. För att nå variabeln `al` i datamaterialet `jordprov` skriver du `jordprov$al`.  Kommandot `mean(jordprov$al)` ger dig medelvärdet av aluminiummätningarna.
 
@@ -79,7 +79,7 @@ Nu vill vi, med grafiska metoder, undersöka om de två dataseten kan modelleras
 
 När du tittar på histogrammet för aluminiumhalter verkar det inte orimligt att de skulle vara normalfördelade, men ett histogram är oftast ett trubbigt instrument då man vill anpassa en standardfördelning till data. En mer använd metod är att rita ut data i ett så kallat fördelningspapper eller QQ-plot. För att illustrera metoden är vi hjälpta av att se hur den fungerar på stickprov där vi verkligen vet fördelningen, vi behöver alltså veta hur man skapar slumptal från olika fördelningar.
 
-## Simulering av slumpvariabler i R
+# Simulering av slumpvariabler i R
 
 I R finns det färdiga funktioner för simulering från respektive fördelning.  Några exempel på dessa funktioner ser du i tabellen nedan.
 
@@ -139,7 +139,7 @@ Hur ser det ut om du försöker anpassa exponentialfördelade slumptal `exp1` el
 
 **Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Modell för aluminiumhalten
+# Modell för aluminiumhalten
 
 Vi tittar på aluminiumhalterna i de 94 jordproverna igen.
 
@@ -186,7 +186,7 @@ Den Al-halt som kommer att understigas av 10% av kommande mätningar är en kvan
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Modell för calciumhalten
+# Modell för calciumhalten
 
 :::{.callout-note icon=false}
 ### Uppgift 4.1
