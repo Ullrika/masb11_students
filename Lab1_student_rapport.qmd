@@ -29,7 +29,7 @@ format:
 
 >I skogsområdet ASA försökspark i Småland är 94 olika gropar grävda i marken och från varje grop är jordprover tagna där bland mycket annat aluminiumhalt och calciumhalt är uppmätta (mg/g).  Data finns i filen `data/lab1_filer/jordprov.Rdata` som innehåller de två variablerna `al` och `ca`.  
 >
->Öppna filen i RStudio, exempelvis genom att klicka på den under Files.  Du kan se de uppmätta halterna genom att klicka på ikonen längst till höger på raden `jordprov`.  Alternativt skriver du `View(jordprov)` i RStudios konsoll (fönster).
+>Öppna filen i RStudio, exempelvis genom att klicka på den under Files.  Du kan se de uppmätta halterna genom att klicka på ikonen längst till höger på raden `jordprov`.  Alternativt skriver du `View(jordprov)` i RStudios konsoll (fönster). För att nå variabeln `al` i datamaterialet `jordprov` skriver du `jordprov$al`.
 
 ```{r}
 load("data/lab1_filer/jordprov.Rdata")
@@ -38,7 +38,7 @@ load("data/lab1_filer/jordprov.Rdata")
 
 # Överblick av datamaterialet 
 
-> Först vill man beräkna några sammanfattande mått för data (medelvärde, min, max, standardavvikelse o.s.v.) och se några översiktsfigurer. För att nå variabeln `al` i datamaterialet `jordprov` skriver du `jordprov$al`.  Kommandot `mean(jordprov$al)` ger dig medelvärdet av aluminiummätningarna.
+> Först vill man beräkna några sammanfattande mått för data (medelvärde, min, max, standardavvikelse o.s.v.) och se några översiktsfigurer. Kommandot `mean(jordprov$al)` ger dig medelvärdet av aluminiummätningarna.
 
 
 :::{.callout-note icon=false}
