@@ -62,14 +62,14 @@ Om allt går som det ska ska det skapas ett docx-dokument under samma namn (t.ex
 Skriv din R-kod i området nedanför. Testa att beräkna 3 + 4. Notera att symbolen # framför en kod avaktiverar koden.
 
 ```{r}
-# skriv här
+# skriv din R-kod här
 
 ```
 
 Om du skriver 3 + 4 kommer resultatet synas när du renderar och man ser även R-koden.
 
-Du kan dölja R-koden genom att ställa in alternativet `echo` på falskt (`echo: FALSE`). Detta är inställning för just denna del (chunk) och ska börja med `#| `.
-Testa vad som händer om du lägger till `#| echo: FALSE`och stickar ihop dokumentet på nytt. 
+Du kan dölja R-koden genom att ställa in alternativet `echo` på falskt (`echo: false`). Detta är inställning för just denna del (chunk) och ska börja med `#| `.
+Testa vad som händer om du lägger till `#| echo: false`och stickar ihop dokumentet på nytt. 
 
 Notera att det även går att ändra inställningar för hela dokumentet (globalt), vilket är relevant för miniprojekten. 
 
@@ -103,7 +103,7 @@ x
 
 Variabeln `x` innehåller en vektor av tal. Medelvärdet för denna vektor är `r mean(x)` och variansen är `r var(x)`.
 
-I mallen finns det flera ställen som resultat används i text. Studera några av dem. Lägg märke till att värdet ibland kan avrundats till 2 eller 3 decimaler med `r round(var(x),2)`.
+I mallen finns det flera ställen där resultat används i text. Studera några av dem. Lägg märke till att värdet ibland kan avrundats till 2 eller 3 decimaler med `r round(var(x),2)`.
 
 ## Skriva matematiska formler såsom modell och hypoteser 
 
