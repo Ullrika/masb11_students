@@ -48,8 +48,7 @@ För att träna på olika modeller gör **Dig:5.2\_1 och \_2**.
 
 ```{r}
 #| message: false
-source("kod/hypotes.R")
-source("kod/styrkefkn.R")
+source("kod/funktioner_raknamedvariation_light.R")
 ```
 
 # Grundläggande begrepp vid hypotestestning
@@ -139,13 +138,13 @@ Undersök hur det kritiska område ändras då du ändrar signifikansnivån till
 
 # Testets styrka och styrkefunktion
 
-> Antag nu att genomsnittlig salivutsöndring i riskgruppen är 0.8.  Då är förstås $H_0: \mu = 1$ falsk och vi vill att vårt test ska upptäcka detta och förkasta denna hypotes till förmån för hypotesen $H_1: \mu < 1$.  Sannolikheten att testet verkligen klarar av detta kallas för testets styrka i punkten 0.8.  Använd rutinen `hypotes`  för att illustrera testets styrka i punkten 0.8.  Kommandot är nu `hypotes(`$\sigma$, $n$, $\mu_0$, $\alpha$, H1-riktn, sant $\mu$`)`, så i detta fall skriver du `hypotes1(0.5, 7, 1, 0.05, '<', 0.8)`.
+> Antag nu att genomsnittlig salivutsöndring i riskgruppen är 0.8.  Då är förstås $H_0: \mu = 1$ falsk och vi vill att vårt test ska upptäcka detta och förkasta denna hypotes till förmån för hypotesen $H_1: \mu < 1$.  Sannolikheten att testet verkligen klarar av detta kallas för testets styrka i punkten 0.8.  Använd rutinen `hypotes`  för att illustrera testets styrka i punkten 0.8.  Kommandot är nu `hypotes(`$\sigma$, $n$, $\mu_0$, $\alpha$, H1-riktn, sant $\mu$`)`, så i detta fall skriver du `hypotes(0.5, 7, 1, 0.05, '<', 0.8)`.
 
 ```{r}
 #| fig-width: 7
 #| fig-height: 7
 #| out-width: 80%
-hypotes1(0.5, 7, 1, 0.05, '<', 0.8)
+hypotes(0.5, 7, 1, 0.05, '<', 0.8)
 ```
 
 :::{.callout-note icon=false}
@@ -159,14 +158,14 @@ $$
 
 Observera att styrkan beror på värdet $\mu$. I detta exempel gäller att ju mindre $\mu$ är i förhållande till $\mu_0= 1$ desto större är chansen att testet ska upptäcka att $H_0$ inte gäller. Därför  är det intressant att studera styrkan som en funktion av $\mu$, denna funktion betecknas ofta $S(\mu)$.
 
-Rutinen \texttt{styrkefkn} ritar upp styrkefunktionen, kommandot är \texttt{styrkefkn($\sigma$, $n$,   $\mu_0$, $\alpha$, H1-riktn, sant $\mu$)} om du vill rita upp funktionen och markera ett speciellt $\mu$-värde.  Använd alltså kommandot `styrka1(0.5, 7, 1, 0.05, '<', 0.8)`, vilket ger dig den tidigare figuren plus styrkan som en funktion av $\mu$.
+Rutinen \texttt{styrkefkn} ritar upp styrkefunktionen, kommandot är \texttt{styrkefkn($\sigma$, $n$,   $\mu_0$, $\alpha$, H1-riktn, sant $\mu$)} om du vill rita upp funktionen och markera ett speciellt $\mu$-värde.  Använd alltså kommandot `styrka(0.5, 7, 1, 0.05, '<', 0.8)`, vilket ger dig den tidigare figuren plus styrkan som en funktion av $\mu$.
 :::
 
 ```{r}
 #| fig-width: 7
 #| fig-height: 7
 #| out-width: 80%
-styrka1(0.5, 7, 1, 0.05, '<', 0.8)
+styrka(0.5, 7, 1, 0.05, '<', 0.8)
 ```
 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
