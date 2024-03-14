@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="sv" xml:lang="sv"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Skriv ditt namn här">
+
+<title>Regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Lab4_student_rapport_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Lab4_student_rapport_files/libs/quarto-html/quarto.js"></script>
+<script src="Lab4_student_rapport_files/libs/quarto-html/popper.min.js"></script>
+<script src="Lab4_student_rapport_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Lab4_student_rapport_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Lab4_student_rapport_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Lab4_student_rapport_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Lab4_student_rapport_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Lab4_student_rapport_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Lab4_student_rapport_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Innehållsförteckning</h2>
+   
+  <ul>
+  <li><a href="#förberedelseuppgifter" id="toc-förberedelseuppgifter" class="nav-link active" data-scroll-target="#förberedelseuppgifter">Förberedelseuppgifter</a></li>
+  <li><a href="#introduktion---regressionsanalys-i-r" id="toc-introduktion---regressionsanalys-i-r" class="nav-link" data-scroll-target="#introduktion---regressionsanalys-i-r">Introduktion - regressionsanalys i R</a></li>
+  <li><a href="#längd-och-ålder-hos-torskar" id="toc-längd-och-ålder-hos-torskar" class="nav-link" data-scroll-target="#längd-och-ålder-hos-torskar"><span class="header-section-number">1</span> Längd och ålder hos torskar</a></li>
+  <li><a href="#korrelationsanalys-av-samband-mellan-längd-och-ålder-hos-torskar" id="toc-korrelationsanalys-av-samband-mellan-längd-och-ålder-hos-torskar" class="nav-link" data-scroll-target="#korrelationsanalys-av-samband-mellan-längd-och-ålder-hos-torskar"><span class="header-section-number">2</span> Korrelationsanalys av samband mellan längd och ålder hos torskar</a></li>
+  <li><a href="#enkel-linjär-regression-för-samband-mellan-längd-och-ålder-hos-torskar" id="toc-enkel-linjär-regression-för-samband-mellan-längd-och-ålder-hos-torskar" class="nav-link" data-scroll-target="#enkel-linjär-regression-för-samband-mellan-längd-och-ålder-hos-torskar"><span class="header-section-number">3</span> Enkel linjär regression för samband mellan längd och ålder hos torskar</a>
+  <ul class="collapse">
+  <li><a href="#kontroll-av-förutsättningar" id="toc-kontroll-av-förutsättningar" class="nav-link" data-scroll-target="#kontroll-av-förutsättningar">Kontroll av förutsättningar</a></li>
+  <li><a href="#prognoser-och-konfidensintervall" id="toc-prognoser-och-konfidensintervall" class="nav-link" data-scroll-target="#prognoser-och-konfidensintervall">Prognoser och konfidensintervall</a></li>
+  </ul></li>
+  <li><a href="#regressionsanalys-av-samband-mellan-koncentration-och-absorbans" id="toc-regressionsanalys-av-samband-mellan-koncentration-och-absorbans" class="nav-link" data-scroll-target="#regressionsanalys-av-samband-mellan-koncentration-och-absorbans"><span class="header-section-number">4</span> Regressionsanalys av samband mellan koncentration och absorbans</a>
+  <ul class="collapse">
+  <li><a href="#fortsätt-med-att-göra-klart-miniprojekt-ii-se-laboration-3" id="toc-fortsätt-med-att-göra-klart-miniprojekt-ii-se-laboration-3" class="nav-link" data-scroll-target="#fortsätt-med-att-göra-klart-miniprojekt-ii-se-laboration-3"><span class="header-section-number">4.1</span> Fortsätt med att göra klart Miniprojekt II, se laboration 3</a></li>
+  <li><a href="#sammanfattning-r" id="toc-sammanfattning-r" class="nav-link" data-scroll-target="#sammanfattning-r">Sammanfattning R</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Andra format</h2><ul><li><a href="Lab4_student_rapport.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Lab4_student_rapport.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regression</h1>
+<p class="subtitle lead">Datorlaboration 4</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Författare</div>
+  <div class="quarto-title-meta-heading">Tillhörighet</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Skriv ditt namn här </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Lunds Universitet
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Publicerad</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">14 mars 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstrakt</div>
+    <p>Syftet med dagens laboration är att du ska</p>
+    <ul>
+    <li>bekanta dig med lite av de funktioner som finns i R vad det gäller korrelations- och regressionsanalys</li>
+    <li>arbeta med Miniprojekt II.</li>
+    </ul>
+  </div>
+</div>
+
+</header>
+
+<section id="förberedelseuppgifter" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="förberedelseuppgifter">Förberedelseuppgifter</h2>
+<blockquote class="blockquote">
+<p>Du måste ha arbetat ordentligt med de väsentligaste begreppen i kapitlet om regression i kursboken. Repetera vid behov begreppen <em>regresionslinje, residualer, konfidensintervall för förväntat värde</em> samt <em>prediktionsintervall</em>.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Du skall ha gjort följande uppgifter <em>innan</em> du kommer till laborationen.</p>
+</blockquote>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hemuppgift 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Gör uppgift 6.10 i arbetsmaterialet.</p>
+</div>
+</div>
+</section>
+<section id="introduktion---regressionsanalys-i-r" class="level1 unnumbered">
+<h1 class="unnumbered">Introduktion - regressionsanalys i R</h1>
+</section>
+<section id="längd-och-ålder-hos-torskar" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Längd och ålder hos torskar</h1>
+<blockquote class="blockquote">
+<p>För 10 torskar har vi värden på variablerna Längd (cm) och Ålder (år).</p>
+</blockquote>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Fisk</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Längd (cm)</td>
+<td>15</td>
+<td>30</td>
+<td>35</td>
+<td>50</td>
+<td>55</td>
+<td>60</td>
+<td>58</td>
+<td>25</td>
+<td>12</td>
+<td>43</td>
+</tr>
+<tr class="even">
+<td>Ålder (år)</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>5</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 1.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Börja med att mata in dessa värden i R. Lägg in värdena i en tabell (dataframe), som du döper till <code>torskar</code>, med värdena i två kolumner: Längd och Ålder. Tänk på att R är känslig för stor och liten bokstav och om man använder ä eller a. Datamaterialet skall alltså innehålla 2 kolumner med 10 värden i varje kolumn.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>torskar <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Längd<span class="ot">=</span><span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">50</span>,<span class="dv">55</span>,<span class="dv">60</span>,<span class="dv">58</span>,<span class="dv">25</span>,<span class="dv">12</span>,<span class="dv">43</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                      Å<span class="at">lder=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>torskar</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Längd Ålder
+1     15     1
+2     30     2
+3     35     3
+4     50     4
+5     55     5
+6     60     6
+7     58     5
+8     25     2
+9     12     1
+10    43     4</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 1.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beskriv data. Gör en grafisk beskrivning av sambandet genom att rita ett spridningsdiagram med Ålder på x-axeln och Längd på y-axeln. Ser det ut som det finns ett linjärt samband?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(torskar<span class="sc">$</span>Ålder, torskar<span class="sc">$</span>Längd)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lab4_student_rapport_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+</section>
+<section id="korrelationsanalys-av-samband-mellan-längd-och-ålder-hos-torskar" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Korrelationsanalys av samband mellan längd och ålder hos torskar</h1>
+<blockquote class="blockquote">
+<p>Vi börjar med att undersöka sambandet mellan variablerna med hjälp av korrelationskoefficienten.</p>
+</blockquote>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 2.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beräkna korrelationskoefficienten (Pearson) och testa om den är skild från noll. Tyder resultaten på att det finns något linjärt samband mellan Längd och Ålder?</p>
+</div>
+</div>
+<p><strong>Modell:</strong> Låt <span class="math inline">\(X\)</span> vara längd och <span class="math inline">\(Y\)</span> vara ålder på fiskar. Vi antar att <span class="math inline">\(X\)</span> och <span class="math inline">\(Y\)</span> tillhör en bivariat (2-dimensionell) normalfördelning med korrelation <span class="math inline">\(\rho = \frac{COV(X,Y)}{\sqrt{V(X)\cdot V(Y)}}\)</span>. Korrelationen skattas med korrelationskoefficienten, d.v.s. <span class="math inline">\(\hat{\rho}=r\)</span>, där <span class="math inline">\(r = \frac{SS_{XY}}{\sqrt{SS_X \cdot SS_Y}}\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(torskar<span class="sc">$</span>Ålder, torskar<span class="sc">$</span>Längd)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.982841</code></pre>
+</div>
+</div>
+<p><strong>Hypoteser:</strong> <span class="math inline">\(H_0: \rho=0\)</span> och <span class="math inline">\(H_1: \rho \neq 0\)</span></p>
+<p>Under antagande att normalfördelning gäller kommer teststorheten <span class="math inline">\(t = r\sqrt{\frac{n-2}{1-r^2}}\)</span> vara approximativt normalfördelad. Det går därmed att testa hypotes med ett t-test. Detta test görs med R med rutinen <code>cor.test</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(torskar<span class="sc">$</span>Ålder, torskar<span class="sc">$</span>Längd)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  torskar$Ålder and torskar$Längd
+t = 15.071, df = 8, p-value = 3.715e-07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9266410 0.9960742
+sample estimates:
+     cor 
+0.982841 </code></pre>
+</div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+</section>
+<section id="enkel-linjär-regression-för-samband-mellan-längd-och-ålder-hos-torskar" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Enkel linjär regression för samband mellan längd och ålder hos torskar</h1>
+<blockquote class="blockquote">
+<p>Vi skall nu undersöka hur sambandet mellan variablerna ser ut genom att anpassa en rät linje till data. Kommandot <code>lm(y ~ x)</code> anpassar en linjär modell för den beroende variabeln <code>y</code> som funktion av en eller flera förklarande variabler <code>x</code> (lm är förkortning av linear model). Sedan kan vi få ut olika egenskaper hos modellen och skattningarna med ytterligare kommandon.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>modell <span class="ot">&lt;-</span> <span class="fu">lm</span>(Längd <span class="sc">~</span> Ålder, <span class="at">data=</span>torskar)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>modell           <span class="co"># skattningarna av parametrarna intercept och lutning på linjen</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Längd ~ Ålder, data = torskar)
+
+Coefficients:
+(Intercept)        Ålder  
+      5.993        9.790  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)  <span class="co"># mer information, t.ex. skattningar och result från test om de är skilda från noll</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Längd ~ Ålder, data = torskar)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-4.733 -1.810 -0.468  2.307  4.847 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   5.9929     2.4044   2.492   0.0374 *  
+Ålder         9.7900     0.6496  15.071 3.72e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.443 on 8 degrees of freedom
+Multiple R-squared:  0.966, Adjusted R-squared:  0.9617 
+F-statistic: 227.1 on 1 and 8 DF,  p-value: 3.715e-07</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modell)  <span class="co"># konfidensintervall för de skattade parametrarna</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                2.5 %   97.5 %
+(Intercept) 0.4483295 11.53744
+Ålder       8.2920547 11.28802</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 3.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Utför regressionsanalysen ovan. Identifiera följande mått i utskriften:</p>
+<p>-Förklaringsgrad (<span class="math inline">\(R^2\)</span>)</p>
+<p>-Standardfel för residualer (<span class="math inline">\(s_e\)</span>)</p>
+<p>-Skattningar av koefficienterna <span class="math inline">\(\beta_0\)</span> och <span class="math inline">\(\beta_1\)</span></p>
+<p>-Konfidensintervall för lutningen</p>
+<p>-p-värde från t-test av nollhypotesen att lutningen är noll</p>
+</div>
+</div>
+<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 3.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>För att få den skattade regressionslinjen utritad i figuren ni skapade tidigare kan du använda kommandot</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(torskar<span class="sc">$</span>Ålder, torskar<span class="sc">$</span>Längd)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modell)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lab4_student_rapport_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+<section id="kontroll-av-förutsättningar" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="kontroll-av-förutsättningar">Kontroll av förutsättningar</h2>
+<blockquote class="blockquote">
+<p>Vi skall nu kontrollera tre av de antagande som finns i analysen, nämligen (1) residualer är obereonde, (2) normalfördelade och (3) har lika varians. Antagandet om oberoende bedöms genom att ta reda på hur data är insamlat. I detta fall vet vi inte så mycket, förutom att mätningarna är gjorda på olika individer fiskade under en dag. Vi finner ingen anledning att inte anta oberoende, och undersöker de två återstående antaganden genom att studera residualerna. Residualerna i den anpassade modellen beräknas med kommandot</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modell)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1          2          3          4          5          6          7 
+-0.7829181  4.4270463 -0.3629893  4.8469751  0.0569395 -4.7330961  3.0569395 
+         8          9         10 
+-0.5729537 -3.7829181 -2.1530249 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 3.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Undersök om residualerna har lika varianser (d.v.s. konstant spridning kring linjen) genom att plotta residualerna mot x-variablen Ålder. Verkar antagandet stämma?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(torskar<span class="sc">$</span>Ålder, res)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lab4_student_rapport_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 3.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Undersök om residualerna är normalfördelade genom att göra en Q-Q-plot med funktionen <code>qqnorm</code>.</p>
+<p>Verkar antagandet om normalfördelning vara uppfyllt?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># skriv din R-kod här</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+</section>
+<section id="prognoser-och-konfidensintervall" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prognoser-och-konfidensintervall">Prognoser och konfidensintervall</h2>
+<blockquote class="blockquote">
+<p>En regressionsmodell kan användas för att göra prognos eller prediktion av det förväntade värdet eller det enskilda värdet av <span class="math inline">\(y\)</span> givet <span class="math inline">\(x=x_0\)</span>. I formellsamlingen har vi följande formler för konfdensintervall (se formelsamlingen för förklaring av alla symboler).</p>
+</blockquote>
+<p><strong>Konfidensintervall för förväntat värde:</strong> <span class="math display">\[I_{\mu(x_0)}: b_0+b_1x_0 \pm t_{1-\alpha/2,n-2}\sqrt{s^2_e(\frac{1}{n}+\frac{(x_0-\bar{x})^2}{SS_x})}\]</span></p>
+<p><strong>Konfidensintervall för enskilt värde (även kallat prediktionsintervall):</strong> <span class="math display">\[I_{y(x_0)}: b_0+b_1x_0 \pm t_{1-\alpha/2,n-2}\sqrt{s^2_e(1+\frac{1}{n}+\frac{(x_0-\bar{x})^2}{SS_x})}\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 3.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rita prediktioner av längd givet ålder med konfidensintervall för förväntade värden och för enskilda värden (prediktionsintervall). Först använder vi modellen för att göra prediktioner för olika värden på ålder.</p>
+<p>För att få intervallen utritade i figur ritar vi linjer med åldrer på x-axeln och tillhörande intervallgränser på y-axeln. För att skilja på intervallen ritar vi konfidensintervallet med streckade blå linjer och prediktionsintervallet med prickade röda linjer.</p>
+<p>Varför är prediktionsintervallet (det blåa) bredare än konfidentsintervallet för det förväntade värdet (det röda)?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gör prediktioner för en ålderssekvens i steg om halvår:</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.5, 1.0, 1.5, …, 7.0, 7.5:</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Å<span class="at">lder=</span><span class="fu">seq</span>(<span class="fl">0.5</span>,<span class="fl">7.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>mu0konf <span class="ot">&lt;-</span> <span class="fu">predict</span>(modell, x0, <span class="at">interval=</span><span class="st">"confidence"</span>)  <span class="co"># konfidensintervall</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>y0pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(modell, x0, <span class="at">interval=</span><span class="st">"prediction"</span>)  <span class="co"># prediktionsintervall</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(torskar<span class="sc">$</span>Ålder, torskar<span class="sc">$</span>Längd)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x0<span class="sc">$</span>Ålder, mu0konf[,<span class="st">"lwr"</span>], <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lty=</span><span class="dv">2</span>) <span class="co"># undre (lower) gränsen</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x0<span class="sc">$</span>Ålder, mu0konf[,<span class="st">"upr"</span>], <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lty=</span><span class="dv">2</span>) <span class="co"># övre (upper) gränsen</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x0<span class="sc">$</span>Ålder, y0pred[,<span class="st">"lwr"</span>], <span class="at">col=</span><span class="st">"red"</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x0<span class="sc">$</span>Ålder, y0pred[,<span class="st">"upr"</span>], <span class="at">col=</span><span class="st">"red"</span>, <span class="at">lty=</span><span class="dv">3</span>)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lab4_student_rapport_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Svar</strong>: <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 3.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vilken längd förväntas en sju år gammal torsk ha? Ange med konfidensintervall!.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># skriv in din R-kod här</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+</section>
+</section>
+<section id="regressionsanalys-av-samband-mellan-koncentration-och-absorbans" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Regressionsanalys av samband mellan koncentration och absorbans</h1>
+<p>I laborationen “Proteinbestämning enligt Bradford-metoden” i kursen cellbiologi undersöktes absorbansen hos prov med olika spädningar av Bovint Serum Albumin (BSA)-standard. Prov med 0–10 <span class="math inline">\(\mu\)</span>g protein spädes till 100 <span class="math inline">\(\mu\)</span>l med vatten och två prover förberedes per koncentration.</p>
+<p>Data för en laborationsgrupp finns i filen <code>data/lab4_filer/Labbdata.RData</code>.</p>
+<p><strong>Modell</strong>: Enligt Lambert-Beers lag gäller att absorbansen (A) kan beskrivas som en linjär funktion av koncentrationen (c): <span class="math inline">\(A=k\cdot c\)</span> där konstanten <span class="math inline">\(k\)</span> beror på ämnets molära absorptionskoefficient vid en viss våglängd samt kyvettens längd. Vid mätningar får man naturligtvis räkna med en viss slumpmässig variation, en rimlig modell är att absorbansen vid mätning nr <span class="math inline">\(i\)</span>, <span class="math inline">\(A_i\)</span>, beskrivs linjärt av koncentrationen ci plus ett slumpmässigt fel:</p>
+<p><span class="math display">\[A_i = \beta_0 + \beta_1 \cdot c_i + \epsilon_i\]</span></p>
+<p>där <span class="math inline">\(\epsilon_i\)</span> är oberoende och normalfördelad slumpfel med väntevärde 0 och standardavvikelse <span class="math inline">\(\sigma\)</span>. Här motsvaras konstanten <span class="math inline">\(\beta_1\)</span> av den tidigare <span class="math inline">\(k\)</span> medan <span class="math inline">\(\beta_0\)</span> är absorbansen i den lösning som BSA:n är löst.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 4.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Undersök baserat på data från laborationen om den linjära regressionsmodellen ovan är rimlig att anpassa.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/lab4_filer/Labbdata.RData"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>modell2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(absorbans <span class="sc">~</span> koncentration, <span class="at">data=</span>Labbdata)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># skriv in din R-kod här</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 4.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hur mycket ökar absorbansen då man ökar koncentrationen en enhet? Ange ett 95 % konfidensintervall för denna storhet.</p>
+</div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 4.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vad är den förväntade absorbansen för ett prov med koncentration 50 (mg/l). Ange ett 95 % konfidensintervall för denna storhet. Skapa först en dataframe där värdet för koncentrationen läggs in.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x50 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">koncentration=</span><span class="fu">c</span>(<span class="dv">50</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>mu50konf <span class="ot">&lt;-</span> <span class="fu">predict</span>(modell2, x50,<span class="at">interval=</span><span class="st">"confidence"</span>)</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Skriv din R-kod här</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 4.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vi har ett prov med koncentration 50 (mg/l). Ange ett 95 %-igt prediktionsintervall för absorbansen i just detta prov.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Skriv din R-kod här</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uppgift 4.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Huvudsyftet med mätningarna var att erhålla en standardkurva för hur absorbansen påverkas av koncentrationen. Anta att vi på ett prov med okänd koncentration <span class="math inline">\(c_0\)</span> uppmätte en absorbans på 0.43. Vilken koncentration kan det svara mot.</p>
+<p>Skatta koncentrationen utifrån kännedom av absorbansen. En skattning av <span class="math inline">\(c_0\)</span> kan vi få fram genom att lösa ut <span class="math inline">\(x\)</span> ur sambandet <span class="math inline">\(0.43 = \beta_0 + \beta_1\cdot x\)</span> så här (om den anpassade modellen sparats i variabeln <code>modell2</code>). Vad blev den skattade koncentrationen?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> modell2<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> modell2<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>c0 <span class="ot">&lt;-</span> (<span class="fl">0.43</span> <span class="sc">-</span> beta0) <span class="sc">/</span> beta1</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>c0</span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+   46.57378 </code></pre>
+</div>
+</div>
+<p><strong>Svar:</strong> <!-- ta bort detta och skriv dina slutsatser i enkel text --></p>
+<section id="fortsätt-med-att-göra-klart-miniprojekt-ii-se-laboration-3" class="level2 unnnumbered" data-number="4.1">
+<h2 class="unnnumbered anchored" data-number="4.1" data-anchor-id="fortsätt-med-att-göra-klart-miniprojekt-ii-se-laboration-3"><span class="header-section-number">4.1</span> Fortsätt med att göra klart Miniprojekt II, se laboration 3</h2>
+<p><strong>Några svar</strong>:<br>
+2.1. Ja! <span class="math inline">\(r = 0.9828, t=15.071\)</span>; p-värde=0.000 - Man kan förkasta hypotesen om inget samband<br>
+3.1. <span class="math inline">\(R^2=0.966\)</span>; <span class="math inline">\(s_e = 3.443\)</span>; <span class="math inline">\(\hat{\beta_0}=b_0=5.993\)</span>; <span class="math inline">\(\hat{\beta_1}=b_1=9.790\)</span>; <span class="math inline">\(I_{\beta_1}=(8.29, 11.29)\)</span>; <span class="math inline">\(p=3.72\cdot 10^{-7}\)</span><br>
+3.6. Förväntad längd vid åldern 7 år är 74.52; konfidensintervall är <span class="math inline">\((68.43,\,80.61)\)</span><br>
+4.1. Normalfördelat: Njä; Konstant varians: Ej helt lätt att bedöma (för få värden)<br>
+4.2. <span class="math inline">\(0.0008\)</span> intervall: <span class="math inline">\((0.00063,\,0.0011)\)</span><br>
+4.3. konfidensintervall: <span class="math inline">\((0.425,\,0.441)\)</span><br>
+4.4. prediktionsintervall: <span class="math inline">\((0.407,\,0.459)\)</span><br>
+4.5. <span class="math inline">\(c_0\)</span> skattas till <span class="math inline">\(46.6\)</span> mg/l</p>
+</section>
+<section id="sammanfattning-r" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sammanfattning-r">Sammanfattning R</h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)                       <span class="co">#Korrelationskoefficient</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(x, y)                  <span class="co">#Test för korrelationskoefficient</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x)                       <span class="co">#Regression av y som funktion av x</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>dataframen)  <span class="co"># dataframen som innehåller x och y ... i ett visst datamaterial</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modell)                 <span class="co">#Skattningar, signifikanser, etc,</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modell)                <span class="co"># Konfidensintervall för parametrarna</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modell, x0)            <span class="co"># Prediction av förväntat värde när x=x0</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modell, x0, <span class="at">interval=</span><span class="st">"confidence"</span>)      <span class="co">#… med konfidensintervall</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modell, x0, <span class="at">interval=</span><span class="st">"prediction"</span>)      <span class="co">#… med prediktionsintervall</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(modell)               <span class="co">#Residualer</span></span></code><button title="Kopiera till Urklipp" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopieras!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopieras!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

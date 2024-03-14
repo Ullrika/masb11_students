@@ -119,8 +119,9 @@ Kolla i rapportmallen hur vi har gjort
 
 Testa att få fram följande text genom att ställa dig på en tom rad någonstans i QMD-filen eller öppna ett nytt QMD dokument och skriva uttryck med LaTeX/MathJax. Gå till File och välj New File > Quarto Document. 
 
-### Grekiska bokstäverna {.unnumbered}
+### Grekiska bokstäver {.unnumbered}
 
+Det är vanligt att använda grekiska bokstäver för parametrar, såsom 
 $\mu$, $\sigma$ och $\alpha$. 
 
 ### Skriv ett uttryck med nedsänkt/upphöjd text {.unnumbered}
@@ -135,7 +136,7 @@ För att få mer än en sak nedänkt behöver man sätta det som ska sänkas ned
 
 Skriv ett uttryck med upphöjd text som $x^2$ eller $\sigma^2$. Likaså kan flera symboler höjas $e^{-\beta x}$. Ta gärna med mellanslag mellan symbolerna för läsbarhet
 
-### Skapar man uttryck med en summa/produkt {.unnumbered}
+### Skapa ett uttryck med en summa eller produkt {.unnumbered}
 
 $\sum_{i=1}^{n} x_i$ eller $\prod_{i=1}^N k_i$
 
@@ -147,7 +148,7 @@ $\frac{1}{n}$
 
 Laborations-handledare har skrivit upp några uttryck på tavlan.
 
-Du kan också hitta dem här [länk till sida i canvas]( https://canvas.education.lu.se/courses/22549/pages/lab-1-uttryck)
+Du kan också hitta dem här [länk till sida i canvas]( https://canvas.education.lu.se/courses/28233/pages/lab-1-uttryck)
 
 Försök att producera uttrycken i detta dokument
 

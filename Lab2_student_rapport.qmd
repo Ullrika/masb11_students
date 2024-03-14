@@ -1,5 +1,5 @@
 ---
-title: "Centrala GränsvärdesSatsen (CGS)"
+title: "Centrala Gränsvärdessatsen (CGS)"
 subtitle: "Datorlaboration 2"
 abstract: |
  Syftet med dagens laboration är att du ska:
@@ -28,10 +28,9 @@ format:
 
 ## Förberedelseuppgifter {.unnumbered}
 
-Du måste ha arbetat ordentligt med de väsentligaste begreppen i kapitel 4.5 och 5.1 i kursboken.   Repetera vid behov begreppen *normalfördelning, väntevärde och varians för en summa (eller   medelvärde) av oberoende slumpvariabler*. 
+Repetera begreppen *normalfördelning, väntevärde och varians för en summa (eller   medelvärde) av oberoende slumpvariabler*. 
 
 Du skall ha gjort följande uppgifter **innan** du kommer till laborationen.
-
 
 :::{.callout-warning icon=false}
 ### Hemuppgift 1
@@ -44,7 +43,7 @@ Försök att med egna ord beskriva vad centrala gränsvärdessatsen säger.
 :::
 
 :::{.callout-warning icon=false}
-### Hemuppgift 2
+### Hemuppgift 3
 Repetera vad du gjorde vid laboration 1 och vilka metoder du använder för att simulera slumptal och för att anpassa en fördelning till data. 
 :::
 
@@ -53,7 +52,7 @@ Repetera vad du gjorde vid laboration 1 och vilka metoder du använder för att 
 
 > Adderar man (eller beräknar medelvärdet) av flera oberoende normalfördelade slumpvariabler är summan också normalfördelad. Men vad händer om man lägger ihop flera variabler som alla är rektangelfördelade? Vilken fördelning fås om man adderar exponentialfördelade variabler?
 >
-> Centrala gränsvärdessatsen (CGS) säger att om man adderar ett stort antal oberoende variabler från en godtycklig fördelning blir summan (eller medelvärdet) normalfördelad. I formler: om $n$ är tillräckligt stort gäller att $Z_n = X_1 + X_2 + \ldots + X_n$ är approximativt normalfördelad oavsett vilket fördelning $X_1, \ldots, Xn$ har. Med några simuleringar ska du undersöka om detta tycks stämma, t.ex. om du utgår från att $X$-variablerna är rektangelfördelade.
+> Centrala gränsvärdessatsen (CGS) säger att om man adderar ett stort antal oberoende variabler från en godtycklig fördelning blir summan (eller medelvärdet) normalfördelad. I formler: om $n$ är tillräckligt stort gäller att $Z_n = X_1 + X_2 + \ldots + X_n$ är approximativt normalfördelad oavsett vilket fördelning $X_1, \ldots, X_n$ har. Med några simuleringar ska du undersöka om detta tycks stämma, där vi utgår från några olika fördelningar för $X$-variablerna.
 
 :::{.callout-note icon=false}
 ### Uppgift 1.1
@@ -87,7 +86,7 @@ Skapa även variabler `unif3`, `unif4` och `unif5` på motsvarande sätt och stu
 # skriv din R-kod här
 ```
 
-<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
 ### Uppgift 1.4
@@ -98,18 +97,18 @@ Skapa även variabler `unif3`, `unif4` och `unif5` på motsvarande sätt och stu
 # skriv din R-kod här
 ```
 
-<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
 ### Uppgift 1.5
-**I mån av tid:** Pröva vad som händer då du summerar exponentialfördelade slumvariabler med väntevärde 1 (`rexp(1000,1)`).  Hur många variabler behövs summeras innan summan kan approximeras med en normalfördelning?
+Pröva vad som händer då du summerar exponentialfördelade slumvariabler med väntevärde 1 (`rexp(1000,1)`).  Hur många variabler behövs summeras innan summan kan approximeras med en normalfördelning?
 :::
 
 ```{r}
 # skriv din R-kod här
 ```
 
-<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 # CGS i praktiken
 
@@ -128,28 +127,42 @@ Undersök om antalet celler i blodet är normalfördelat för de båda grupperna
 # skriv din R-kod här
 ```
 
-<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
 ### Uppgift 2.2
-Det kan vara intressant att jämföra grupperna genom att bilda differensen mellan de två gruppmedelvärdena. Använd dig av centrala gränsvärdessatsen för att säga någon om vilken fördelning differensen i medelvärden har. Skatta parametrarna (väntevärde och varians) i denna fördelning. 
-:::
+Det kan vara intressant att jämföra grupperna genom att bilda differensen mellan de två gruppmedelvärdena. Använd dig av centrala gränsvärdessatsen för att säga något om vilken fördelning differensen i stickprovsmedelvärden har.
+::: 
 
-```{r}
-# skriv din R-kod här
-```
+**Modell**: 
 
-<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+Låt $\mu_{Hodgkin}$ och $\mu_{NonHodgkin}$ vara väntevärden i de två grupperna.
+
+Låt $\sigma^2_{Hodgkin}$ och $\sigma^2_{NonHodgkin}$ vara varianser i de två grupperna. 
+
+Vi har två stickprov $(x_1,...,x_{35})$ och $(y_1,...,y_{35})$ från gruppenrna med Hodgkin respektive NonHodgkin. 
+
+Differensen mellan stickprovsmedelvärden är $\delta = \bar{x}- \bar{y}$ och har följande fördelning 
+
+$\delta \sim ...$ fyll i beskrivningen!
+
 
 :::{.callout-note icon=false}
 ### Uppgift 2.3
-Är det ett stort problem att variabeln inte är normalfördelad i de båda grupperna från början? Kan man åtgärda detta på något sätt?
+Skatta parametrarna (väntevärde och varians) i fördelningen för differensen $\delta$. 
 :::
 
 ```{r}
 # skriv din R-kod här
 ```
 
-<!-- ta bort detta och skriv dina slutsatser i enkel text -->
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-> Kör (Render) denna fil till en PDF och ladda upp det som en laborationsrapport på Canvas. Forsätt sedan med Miniprojekt I under laboration 2!
+:::{.callout-note icon=false}
+### Uppgift 2.4
+Är det ett stort problem att antal celler i bloder inte är normalfördelad i de båda grupperna från början? Föreställ dig en situtation där det är ett problem och ge ett förslag på hur man kan åtgärda det?
+:::
+
+**Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
+
+> Kör (Render) denna fil till en html (öppna i webbläsare och skriv ut till PDF) eller en PDF och ladda upp din PDF som en laborationsrapport på Canvas. Forsätt sedan med Miniprojekt I under laboration 2!
