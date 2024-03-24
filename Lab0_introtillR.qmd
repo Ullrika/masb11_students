@@ -1,0 +1,144 @@
+---
+title: "Introduktion till att använda R med Quarto" # detta är kommentaren. 
+subtitle: "MASB11 VT 24" # kommentarer kommer inte att synas i rapporten
+execute: 
+  echo: true    #använd för att se/dölja R-kod i rapporten
+number-sections: true #sektioner kan numreras automatiskt
+highlight-style: pygments # pröva annat https://quarto.org/docs/output-formats/html-code.html#highlighting
+lang: sv # detta kommer att gör till att all datum är på Svenska
+language: sv_language.yml # detta kommer att gör till att all text är på Svenska
+format: 
+  html:
+    theme: cosmo # pröva annat https://quarto.org/docs/output-formats/html-themes.html
+    toc: true     #använd för att se innehållsförteckning
+    code-fold: false # 
+  pdf: default
+  docx: default
+---
+
+<!--detta är en textkommentar. Den kommer inte att synas i rapporten -->
+
+# Introduktion
+
+Quarto är ett verktyg för att skapa rapporter genom att kombinera kod med text. Ni kommer använda Quarto för att göra laborationer och skapa laborationsrapporter i kursen. Ni uppmanas använda Quarto för de två miniprojekten, men det är inget krav.
+
+Detta är en introduktion till verktyget med exempel på vad man kan göra med Quarto.
+
+Öppna Rstudio och filen `Lab0_introtillR.qmd`.
+
+Rubriken på detta dokument kallas YAML. Den beskriver inställningarna för dokumentet på ett hierarkiskt sätt. Notera att var man placerar text (indraget) i YAML spelar roll för hur det tolkas.
+
+Gå igenom dokumentet och utforska kommentarerna för att förstå de olika inställningarna. Testa ändra några inställningar och framställa (sticka ihop) dokumentet med knappen "Render" i Rstudio.
+
+## Stickning av .Rmd till html
+
+Programmet skapar en rapport i olika format. Det enklaste formatet att använda är html. Vi rekommenderar att ni använder html när ni arbetar med laborationen och stickar till PDF när ni lämnar in. 
+Tryck på den svarta nedåtriktade pilen till höger om Render och välj Render HTML
+
+![](fig/render.png){width=30%}
+
+## Stickning av .Rmd till PDF
+
+Ni ska lämna in labbrapporter och miniprojekt som en PDF. Man kan skapa en PDF direkt genom att istället välja Render PDF.
+
+Om allt går som det ska ska det öppnas ett pdf-dokument (`Lab0_provexempel.pdf`) i en pdf-läsare. Om det inte öppnas en PDF - kolla om den finns bland filer (under Files).
+
+## Stickning av .Rmd till Word
+
+Ett tredje alternativ är att skriva rapporten till Word. Tryck på den svarta nedåtpekande pilen till höger om Knit-symbolen. Välj "Render MS Word".
+
+Om allt går som det ska ska det skapas ett docx-dokument under samma namn (`Lab0_provexempel.docx`). Om inte, kontakta instruktör.
+
+## Köra ett R-kommando och få in resultat i ett kommandoblock
+
+R fungerar som en miniräknare, men där man kan göra mycket mer. Skriv din R-kod i ett kod-block ("chunk"). När man trycker på den gröna cymbolen +C öppnas kod-blocket som ett grått område (se nedanför). Testa att beräkna 3 + 4. Notera att det blocket får bara innehålla R-kod, och attsymbolen \# framför en kod eller text avaktiverar koden.
+
+```{r}
+# skriv din R-kod här
+
+```
+
+Om du skriver 3 + 4 kommer resultatet synas när du renderar och man ser även R-koden.
+
+Du kan dölja R-koden genom att ställa in alternativet `echo` på falskt (`echo: false`). Detta är inställning för just denna del (chunk) och ska börja med `#|`. Testa vad som händer om du lägger till `#| echo: false` i början av kod-blocket och stickar ihop dokumentet på nytt.
+
+Notera att det även går att ändra inställningar för hela dokumentet (globalt), vilket är relevant för miniprojekten.
+
+## Köra ett R-kommando och få in resultat direkt i texten
+
+I det dokument som skapas ser man fortfarande resultatet från 3 + 4 som
+
+\[1\] 7
+
+Föreställ dig en situation där du i din rapport text ska skriva in resultatet från denna beräkning. Först måste du spara resultatet som ett objekt i R, låt oss kalla objektet "resultat".
+
+Sen skriver du en text i vilken du hänvisar till "resultat". För att programmet ska veta att resultat är ett objekt från R, skriver du en grav accent (Ullrika klallar den "bakåtfnuff") följt med ett r framför objektet i texten och avslutar med en accent. På min dator får jag fram en grav accent genom att trycka Shift + "en knapp med symbolen med grav accent" följt av space.
+
+![](fig/bakåtfnuff.png){width="30%"}
+
+Sticka ihop dokumentet och då bör du på den platsen i dokumentet se följande
+
+```{r}
+#| echo: false
+resultat <- 3 + 4
+```
+
+Om man lägger ihop 3 och 4 får man `r resultat`.
+
+## Göra beräkningar och implementera resultat i text
+
+Du kan också utföra mer komplexa beräkningar i text.
+
+```{r}
+x <- 1:10
+x
+```
+
+Objektet `x` innehåller en vektor av tal. Medelvärdet för denna vektor är `r mean(x)` och variansen är `r var(x)`.
+
+I mallen finns det flera ställen där resultat används i text. Studera några av dem. Lägg märke till att värdet ibland kan avrundats till 2 eller 3 decimaler. Här är variansen avrundad till två decimaler `r round(var(x),2)`.
+
+## Skriva matematiska formler såsom modell och hypoteser
+
+Matematiska formler skrivs med hjälp av MathJax (typ LaTeX). På samma sätt som symbolen r markerar när något är en kod eller variabler i R, markeras LaTeX text av dollartecken för och efter utrycket (t. ex. $f(x)$). Använd två dollartecken före och efter för att få ett matematiskt uttryck som är på en egen rad.
+
+$$
+E=mc^2
+$$
+
+::: callout-tip
+Kolla i rapportmallen hur vi har gjort
+:::
+
+Testa att få fram följande text genom att ställa dig på en tom rad någonstans i QMD-filen eller öppna ett nytt QMD dokument och skriva uttryck med LaTeX/MathJax. Gå till File och välj New File \> Quarto Document.
+
+### Grekiska bokstäver {.unnumbered}
+
+Det är vanligt att använda grekiska bokstäver för parametrar, såsom $\mu$, $\sigma$ och $\beta$.
+
+### Skriv ett uttryck med nedsänkt/upphöjd text {.unnumbered}
+
+$x_1$ eller $y_i$
+
+Du kan gör mer än en symbol nedsänkt, t.ex. $X_{gruppA}$.
+
+::: callout-tip
+För att få mer än en sak nedänkt behöver man sätta det som ska sänkas ned inom klammerparentes
+:::
+
+Skriv ett uttryck med upphöjd text som $x^2$ eller $\sigma^2$. Likaså kan flera symboler höjas $e^{-\beta x}$. Ta gärna med mellanslag mellan symbolerna för läsbarhet
+
+### Hur man skriver ett uttryck som är en kvot {.unnumbered}
+
+$\frac{1}{n}$
+
+### Hur man skriver ett uttryck med en summa {.unnumbered}
+
+$\sum_{i=1}^{n} x_i$
+
+
+### Skriv in nya uttryck {.unnumbered}
+
+Försök att producera följande uttryck i detta dokument
+
+![](fig/uttryck.png){width="30%"}

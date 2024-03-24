@@ -9,7 +9,7 @@ abstract: |
 author: 
   - name: "Skriv ditt namn här"
     affiliation: "Lunds Universitet"
-date: "`r Sys.Date()`"
+date: today
 toc: true
 number-sections: true
 highlight-style: pygments
@@ -218,5 +218,6 @@ Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y
 ### Uppgift 4.4
 Beräkna sannolikheten att \texttt{log(calciumhalt)} överstiger $\log(30)$. Ange det kommando du använder för att uföra denna beräkning.
 :::
+
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
