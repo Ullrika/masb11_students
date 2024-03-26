@@ -12,8 +12,7 @@ abstract: |
   - arbeta med kursens Miniprojekt II.
 author: 
   - name: "Skriv ditt namn här"
-    affiliation: "Lunds Universitet"
-date: "`r Sys.Date()`"
+date: today
 toc: true
 number-sections: true
 highlight-style: pygments

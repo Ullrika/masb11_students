@@ -8,7 +8,6 @@ abstract: |
   - träna på att använda olika grafiska metoder för att undersöka  vilka fördelningar ett datamaterial kan komma från
 author: 
   - name: "Skriv ditt namn här"
-    affiliation: "Lunds Universitet"
 date: today
 toc: true
 number-sections: true
