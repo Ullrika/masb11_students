@@ -158,20 +158,24 @@ Tidigare har du använt R för att beräkna medelvärde (m) och standardavvikels
 Beräkna de skattade parametrarna och för in dem i din modell genom att skriva
 
 ```r
-m = mean(jordprov\$al)
+m = mean(jordprov$al)
 s = sd(jordprov$al)
 hist(jordprov$al,probability=TRUE)
 xx <- seq(40,120,by=0.2)
 lines(xx,dnorm(xx,m,s))
 ```
+
 Nu kan du jämföra täthetsfunktionen från modellen med histogrammet för stickprovet. De borde vara ganska lika för att modellen ska anses vara bra.
 
 Med denna modell kan du beräkna sannolikheter och göra förutsägelser
 kring framtida mätningar.  Du kan t.ex. beräkna sannolikheten att en
 ny aluminiummätning kommer att överstiga 80 mg/g, eller bestämma den
 Al-halt som kommer att understigas av 10% av kommande mätningar.
+
+Vilka värden har de skattade parametrarna? 
 :::
 
+*Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
 ### Uppgift 3.3
@@ -208,14 +212,14 @@ Nu ska du uppskatta sannolikheten att en calciummätning överstiger 30 mg/g. F�
 
 :::{.callout-note icon=false}
 ### Uppgift 4.3
-Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y) > \log(30))$. Om $Y$ är lognormalfördelad gäller att $\log(Y)$ är normalfördelad. Sätt upp en modell för $\log(Y)$ och skatta dess parametrar. Vilken fördelning har de skattade parametrarna?
+Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y) > \log(30))$. Om $Y$ är lognormalfördelad gäller att $\log(Y)$ är normalfördelad. Sätt upp en modell för $\log(Y)$ och skatta dess parametrar. Vilka värden har de skattade parametrarna?
 :::
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
 ### Uppgift 4.4
-Beräkna sannolikheten att \texttt{log(calciumhalt)} överstiger $\log(30)$. Ange det kommando du använder för att uföra denna beräkning.
+Beräkna sannolikheten att \texttt{log(calciumhalt)} överstiger $\log(30)$. Visa det kommando du använder för att uföra denna beräkning.
 :::
 
 
