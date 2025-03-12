@@ -142,6 +142,7 @@ window.Quarto = {
     <ul>
     <li>illustrera centrala gränsvärdessatsen (CGS) med hjälp av simulering</li>
     <li>använda CGS i en praktisk situation</li>
+    <li>anpassa modeller och dra slutsatser</li>
     </ul>
   </div>
 </div>
@@ -195,7 +196,7 @@ Hemuppgift 3
 </div>
 </section>
 <section id="centrala-gränsvärdessatsen" class="level1">
-<h1>Centrala gränsvärdessatsen</h1>
+<h1>1. Centrala gränsvärdessatsen</h1>
 <blockquote class="blockquote">
 <p>Adderar man (eller beräknar medelvärdet) av flera oberoende normalfördelade slumpvariabler är summan också normalfördelad. Men vad händer om man lägger ihop flera variabler som alla är rektangelfördelade? Vilken fördelning fås om man adderar exponentialfördelade variabler?</p>
 <p>Centrala gränsvärdessatsen (CGS) säger att om man adderar ett stort antal oberoende variabler från en godtycklig fördelning blir summan (eller medelvärdet) normalfördelad. I formler: om <span class="math inline">\(n\)</span> är tillräckligt stort gäller att <span class="math inline">\(Z_n = X_1 + X_2 + \ldots + X_n\)</span> är approximativt normalfördelad oavsett vilket fördelning <span class="math inline">\(X_1, \ldots, X_n\)</span> har. Med några simuleringar ska du undersöka om detta tycks stämma, där vi utgår från några olika fördelningar för <span class="math inline">\(X\)</span>-variablerna.</p>
@@ -292,7 +293,7 @@ Hemuppgift 3
 </section>
 </section>
 <section id="cgs-i-praktiken" class="level1">
-<h1>CGS i praktiken</h1>
+<h1>2. CGS i praktiken</h1>
 <blockquote class="blockquote">
 <p>På 35 patienter med Hodgkins sjukdom mätte man antalet T4 celler i blodet (antal/mm3). Samtidigt mätte man motsvarande antal hos 35 patienter som hade andra sjukdomar (Non-Hodgkins). Data ligger i filen <code>data/lab2_filer/Hodgkindata.RData</code>. Läs in data med <code>load()</code>. Du har nu fått två nya variabler Hodgkin och NonHodgkin.</p>
 </blockquote>
@@ -342,7 +343,7 @@ Hemuppgift 3
 </section>
 </section>
 <section id="provtagningstider---problemställningar-från-labbet" class="level1">
-<h1>Provtagningstider - problemställningar från labbet</h1>
+<h1>3. Provtagningstider - problemställningar från labbet</h1>
 <p>Målsättningen med denna uppgift är att du ska</p>
 <ul>
 <li><p>träna på att hämta ett problem ur verkligheten och med hjälp av ett insamlat material konstruera en rimlig statistisk modell,</p></li>
@@ -406,7 +407,7 @@ Tips
 <li><p>vilka satser du använder.</p></li>
 <li><p>Redovisa resultat av analysen och vilka tolkningar och slutsatser du gör.</p></li>
 <li><p>Sammanfatta dina resultat för provtagningstider.</p></li>
-<li><p>Undvik hänvisa till R-kod för att beskriva vad du har gjort</p></li>
+<li><p>För att bli godkänd på uppgift 3, ska du undvika hänvisa till R-kod för att beskriva vad du har gjort</p></li>
 </ul>
 </section>
 </section>

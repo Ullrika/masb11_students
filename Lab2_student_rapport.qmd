@@ -6,10 +6,11 @@ abstract: |
    
   - illustrera centrala gränsvärdessatsen (CGS) med hjälp av simulering
   - använda CGS i en praktisk situation
+  - anpassa modeller och dra slutsatser
+  
 author: 
   - name: "Skriv ditt namn här"
 date: today
-#number-sections: true
 highlight-style: pygments
 lang: sv
 language: sv_language.yml # detta kommer att gör till att all text är på Svenska
@@ -45,7 +46,7 @@ Repetera vad du gjorde vid laboration 1 och vilka metoder du använder för att 
 :::
 
 
-# Centrala gränsvärdessatsen
+# 1. Centrala gränsvärdessatsen
 
 > Adderar man (eller beräknar medelvärdet) av flera oberoende normalfördelade slumpvariabler är summan också normalfördelad. Men vad händer om man lägger ihop flera variabler som alla är rektangelfördelade? Vilken fördelning fås om man adderar exponentialfördelade variabler?
 >
@@ -108,7 +109,7 @@ qqline(sumn)
 
 **Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# CGS i praktiken
+# 2. CGS i praktiken
 
 > På 35 patienter med Hodgkins sjukdom mätte man antalet T4 celler i blodet (antal/mm3). Samtidigt mätte man motsvarande antal hos 35 patienter som hade andra sjukdomar (Non-Hodgkins). Data ligger i filen `data/lab2_filer/Hodgkindata.RData`. Läs in data med `load()`. Du har nu fått två nya variabler Hodgkin och NonHodgkin.
 
@@ -166,7 +167,7 @@ Skatta parametrarna (väntevärde och varians) i fördelningen för differensen 
 
 **Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# Provtagningstider - problemställningar från labbet
+# 3. Provtagningstider - problemställningar från labbet
 
 Målsättningen med denna uppgift är att du ska 
 
@@ -237,4 +238,4 @@ Ange (om så är lämpligt):
 
 - Sammanfatta dina resultat för provtagningstider.
 
-- Undvik hänvisa till R-kod för att beskriva vad du har gjort
+- För att bli godkänd på uppgift 3, ska du undvika hänvisa till R-kod för att beskriva vad du har gjort
