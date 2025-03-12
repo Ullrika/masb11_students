@@ -22,6 +22,7 @@ format:
       - top=30mm
       - left=30mm
   docx: default
+
 ---
 
 ## Datamaterial jordprov {.unnumbered}
@@ -54,6 +55,7 @@ Då man har mätningar, $x_{1},  x_{2}, \ldots, x_{n}$, fås mycket information 
 <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
+
 ### Uppgift 1.2
 Rita ut den empiriska fördelningsfunktionen för aluminiumhalterna.  En grid läggs in i figuren om du skriver `plot.ecdf(jordprov$al,panel.first=grid())`. Använd figuren för att ta reda på hur stor andel av mätningarna som understeg 80 mg/g.  
 :::
@@ -149,7 +151,7 @@ Avgör om dessa halter kan modelleras med en normalfördelning. Använd metoden 
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-Tidigare har du använt R för att beräkna medelvärde (m) och standardavvikelse (s) för aluminiumhalterna.  Dessa värden kan du använda som uppskattningar av väntevärdet $\mu$ och standardavvikelsen $\sigma$ i den anpassade fördelningen.  Givet att du tyckter att en normalfördelning passar bra till data *kan vi nu sätta upp en modell för våra observationer.*
+Tidigare har du använt R för att beräkna **stickprovs**medelvärde (m) och **stickprovs**standardavvikelse (s) för aluminiumhalterna.  Dessa värden kan du använda som uppskattningar av **det teoretiska** väntevärdet $\mu$ och **den teoretiska** standardavvikelsen $\sigma$ i den anpassade fördelningen.  Givet att du tyckter att en normalfördelning passar bra till data *kan vi nu sätta upp en modell för våra observationer.*
 
 **Modell**: $X=$ "aluminiumhalten i ett jordprov"; $X$ är normalfördelad med väntevärde $\mu$ och standardavvikelse $\sigma$. Vi skattar dessa parametrar som $\hat{\mu} = m$ ("medelvärdet för stickprovet") och $\hat{\sigma} = s$ ("standardavvikelse för stickprovet").
 
@@ -179,14 +181,14 @@ Vilka värden har de skattade parametrarna?
 
 :::{.callout-note icon=false}
 ### Uppgift 3.3
-Antag att du vill beräkna sannolikheten att aluminiumhalten i ett prov överstiger 80 mg/g, med andra ord du vill beräkna $P(X > 80)$.  På övningarna har du gjort det med hjälp av räknare och/eller tabell.  I R är kommandot för beräkning av normalfördelningens fördelningsfunktion $P(X \leq x)$ `pnorm()`.  Förklara varför den önskade sannolikheten beräknas med kommandot `1-pnorm(80,m,s)`.
+Du får nu i uppgift att **med hjälp av den anpassade modellen** beräkna sannolikheten att aluminiumhalten i ett prov överstiger 80 mg/g, med andra ord du vill beräkna $P(X > 80)$ där $X\sim N(\hat{\mu},\hat{\sigma})$.  På övningarna har du gjort det med hjälp av räknare och/eller tabell.  I R är kommandot för beräkning av normalfördelningens fördelningsfunktion $P(X \leq x)$ `pnorm()`.  Förklara varför den önskade sannolikheten beräknas med kommandot `1-pnorm(80,m,s)`.
 :::
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
 ### Uppgift 3.4
-Den Al-halt som kommer att understigas av 10% av kommande mätningar är en kvantil i normalfördelningen. Använd R för att beräkna kvantilen med kommandot `qnorm(0.1,m,s)`.
+Den Al-halt som kommer att understigas av 10% av kommande mätningar är en kvantil i den anpassade normalfördelningen. I R beräknas kvantilen med kommandot `qnorm(0.1,m,s)`. Vilket värde har kvantilen?
 :::
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -203,7 +205,7 @@ En annan standardfördelning som är vanlig för biodata är lognormalfördelnin
 
 :::{.callout-note icon=false}
 ### Uppgift 4.2
-Pröva om calciummätningarna verkar vara lognormalfördelade. Ser det bra ut?
+Pröva om calciummätningarna verkar vara observationer från en lognormalfördelning. Ser anpassningen bra ut?
 :::
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
@@ -212,14 +214,14 @@ Nu ska du uppskatta sannolikheten att en calciummätning överstiger 30 mg/g. F�
 
 :::{.callout-note icon=false}
 ### Uppgift 4.3
-Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y) > \log(30))$. Om $Y$ är lognormalfördelad gäller att $\log(Y)$ är normalfördelad. Sätt upp en modell för $\log(Y)$ och skatta dess parametrar. Vilka värden har de skattade parametrarna?
+Om $Y=$ calciumhalt söker vi $P(Y>30)$, vilket är ekvivalent med att $P(\log(Y) > \log(30))$. Om $Y$ är lognormalfördelad gäller att $\log(Y)$ är normalfördelad. Sätt upp en modell för $\log(Y)$ och skatta dess parametrar med hjälp av stickprovet. Vilka värden har de skattade parametrarna?
 :::
 
 *Svar*: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 :::{.callout-note icon=false}
 ### Uppgift 4.4
-Beräkna sannolikheten att log av calciumhalten överstiger $\log(30)$. Visa det kommando du använder för att uföra denna beräkning.
+Beräkna sannolikheten att logaritmen av calciumhalten överstiger $\log(30)$. Visa det kommando du använder för att uföra denna beräkning!
 :::
 
 

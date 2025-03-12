@@ -33,6 +33,7 @@ Gå igenom dokumentet och utforska kommentarerna för att förstå de olika inst
 ## Stickning av .Rmd till html
 
 Programmet skapar en rapport i olika format. Det enklaste formatet att använda är html. Vi rekommenderar att ni använder html när ni arbetar med laborationen och stickar till PDF när ni lämnar in. 
+
 Tryck på den svarta nedåtriktade pilen till höger om Render och välj Render HTML
 
 ![](fig/render.png){width=30%}
@@ -47,7 +48,7 @@ Om allt går som det ska ska det öppnas ett pdf-dokument (`Lab0_provexempel.pdf
 
 Ett tredje alternativ är att skriva rapporten till Word. Tryck på den svarta nedåtpekande pilen till höger om Knit-symbolen. Välj "Render MS Word".
 
-Om allt går som det ska ska det skapas ett docx-dokument under samma namn (`Lab0_provexempel.docx`). Om inte, kontakta instruktör.
+Om allt går som det ska ska det skapas ett docx-dokument under samma namn (`Lab0_provexempel.docx`). Om inte, fråga lärare.
 
 ## Köra ett R-kommando och få in resultat i ett kommandoblock
 
