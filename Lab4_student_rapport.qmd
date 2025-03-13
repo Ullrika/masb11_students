@@ -5,7 +5,9 @@ abstract: |
   Syftet med dagens laboration är att du ska
  
   - bekanta dig med lite av de funktioner som finns i R vad det gäller korrelations- och regressionsanalys
-  - arbeta med Miniprojekt II.
+  - träna på att med hjälp av ett insamlat material konstruera en rimlig statistisk modell samt göra en kritisk granskning av modellen och dess förmåga att beskriva verkligheten
+  - tillämpa dina kunskaper och med hjälp av R analysera ett biostatistiskt datamaterial
+  - träna på att skriftligt redovisa antaganden, modeller och slutsatser från en statistisk analys.
 author: 
   - name: "Skriv ditt namn här"
 date: today
@@ -36,9 +38,9 @@ format:
 Gör uppgift 6.10 i arbetsmaterialet.
 :::
 
-# Introduktion - regressionsanalys i R {.unnumbered}
+# 1. Introduktion - regressionsanalys i R {.unnumbered}
 
-# Längd och ålder hos torskar 
+# Längd och ålder hos torskar{.unnumbered} 
 
 > För 10 torskar har vi värden på variablerna Längd (cm) och Ålder (år).
 
@@ -71,7 +73,7 @@ plot(torskar$Ålder, torskar$Längd)
 
 **Svar:** <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# Korrelationsanalys av samband mellan längd och ålder hos torskar
+# 2. Korrelationsanalys av samband mellan längd och ålder hos torskar{.unnumbered}
 
 > Vi börjar med att undersöka sambandet mellan variablerna med hjälp av korrelationskoefficienten. 
 
@@ -96,7 +98,7 @@ cor.test(torskar$Ålder, torskar$Längd)
 
 **Svar:** <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# Enkel linjär regression för samband mellan längd och ålder hos torskar
+# 3. Enkel linjär regression för samband mellan längd och ålder hos torskar{.unnumbered}
 
 > Vi skall nu undersöka hur sambandet mellan variablerna ser ut genom att anpassa en rät linje till data.  Kommandot `lm(y ~ x)` anpassar en linjär modell för den beroende variabeln `y` som funktion av en eller flera förklarande variabler `x` (lm är förkortning av linear model).  Sedan kan vi få ut olika egenskaper hos modellen och skattningarna med ytterligare kommandon.
 
@@ -175,7 +177,7 @@ Verkar antagandet om normalfördelning vara uppfyllt?
 
 **Svar:** <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Prognoser och konfidensintervall {.unnumbered}
+## Prognoser och konfidensintervall{.unnumbered}
 
 > En regressionsmodell kan användas för att göra prognos eller prediktion av det förväntade värdet eller det enskilda värdet av $y$ givet $x=x_0$. I formellsamlingen har vi följande formler för konfdensintervall (se formelsamlingen för förklaring av alla symboler).
 
@@ -224,7 +226,7 @@ Vilken längd förväntas en sju år gammal torsk ha? Ange med konfidensinterval
 **Svar:** <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 
-# Regressionsanalys av samband mellan koncentration och absorbans
+# 4. Regressionsanalys av samband mellan koncentration och absorbans{.unnumbered}
 
 I laborationen "Proteinbestämning enligt Bradford-metoden" i kursen cellbiologi undersöktes absorbansen hos prov med olika spädningar av Bovint Serum Albumin (BSA)-standard.  Prov med 0--10 $\mu$g protein spädes till 100 $\mu$l med vatten och två prover förberedes per koncentration.
 
@@ -288,7 +290,7 @@ Vi har ett prov med koncentration 50 (mg/l).  Ange ett 95 %-igt prediktionsinter
 
 :::{.callout-note icon=false}
 ### Uppgift 4.5
-Huvudsyftet med mätningarna var att erhålla en standardkurva för hur absorbansen  påverkas av koncentrationen.  Anta att vi på ett prov med okänd koncentration $c_0$ uppmätte en absorbans på 0.43.  Vilken koncentration kan det svara mot.
+Huvudsyftet med mätningarna var att erhålla en standardkurva för hur absorbansen  påverkas av koncentrationen.  Anta att vi på ett prov med okänd koncentration $c_0$ uppmätter en absorbans på 0.43.  Vilken koncentration kan det svara mot.
 
 Skatta koncentrationen utifrån kännedom av absorbansen. En skattning av $c_0$ kan vi få fram genom att lösa ut $x$ ur sambandet $0.43 = \beta_0 + \beta_1\cdot x$ så här (om den anpassade modellen sparats i variabeln `modell2`).  Vad blev den skattade koncentrationen?
 :::
@@ -302,8 +304,9 @@ c0
 
 **Svar:**  <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-## Fortsätt med att göra klart Miniprojekt II, se laboration 3 {.unnnumbered}
-**Några svar**:  
+
+# Några svar{.unnumbered}
+
   2.1. Ja! $r = 0.9828, t=15.071$; p-värde=0.000 - Man kan förkasta hypotesen om inget samband  
   3.1. $R^2=0.966$; $s_e = 3.443$; $\hat{\beta_0}=b_0=5.993$; $\hat{\beta_1}=b_1=9.790$; $I_{\beta_1}=(8.29, 11.29)$; $p=3.72\cdot 10^{-7}$  
   3.6. Förväntad längd vid åldern 7 år är 74.52; konfidensintervall är $(68.43,\,80.61)$  
@@ -314,7 +317,7 @@ c0
   4.5. $c_0$ skattas till $46.6$ mg/l  
   
 
-## Sammanfattning R {.unnumbered}
+# Sammanfattning R{.unnumbered}
 
 ```r
 cor(x, y)                       #Korrelationskoefficient
@@ -329,3 +332,43 @@ predict(modell, x0, interval="prediction")		#… med prediktionsintervall
 residuals(modell)               #Residualer
 ```
 
+# 5. Statistisk analys{.unnumbered}
+
+Detta är en fortsättning med datamaterialet från studien om aktiveringskampanjen har haft någon effekt från laboration 3. 
+
+En del forskare menar att kolesterolhalten ökar med åldern medan andra anser att faktorer som rökning och stillasittande har större betydelse.  I variablerna `Aalder` och `Balder` finns de undersökta männens ålder vid studiens start. 
+
+Tyder våra data vid studiens start på att åldern påverkar kolesterolhalten?
+
+## Föreslagen arbetsgång{.unnumbered}
+
+Eftersom det handlar om mätningar före aktiveringskampanjen och man vill ha stora stickprov, så är det lämpligt att slå ihop data från grupp A och B. Nedan är ett exempel på hur man kan göra det.
+
+```{r}
+load("C:/Rfolder/masb11_students/data/lab3_filer/blodprov.Rdata")
+df <- data.frame(
+  alder = c(kolesterol$Aalder,kolesterol$Balder),
+  kolesterol = c(kolesterol$Afore,kolesterol$Bfore)
+)
+```
+
+
+Plotta kolesterolhalt mot ålder och undersök med en statistisk metod om kolesterolhalten, bortsett från slumpmässiga   faktorer, kan beskrivas med en funktion av ålder. 
+
+I kursen har vi gått igenom enkel linjär regression och korrelationsanalys för att undersöka samband mellan kontinuerliga variabler. Fundera på vilken av metoderna som är mest lämplig för just detta datamaterial? Diskutera gärna med lab/övningshandledare innan du går vidare. 
+
+## Instruktioner för rapportering i del 6{.unnumbered}
+
+Ange (om så är lämpligt):
+
+  - vilka antaganden du gör om data,
+  
+  - vilka modeller du ställer upp,
+  
+  - vilka hypoteser du testar,
+  
+- Motivera val av metod i din rapport. 
+
+- Redovisa resultat av analysen och vilka tolkningar och slutsatser du gör.
+
+- För att bli godkänd på del 5, ska du undvika hänvisa till R-kod för att beskriva vad du har gjort.

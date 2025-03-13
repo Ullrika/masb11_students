@@ -16,7 +16,7 @@ lang: sv
 language: sv_language.yml # detta kommer att gör till att all text är på Svenska
 format: 
   html:
-    code-fold: true
+    code-fold: false
   pdf: 
     geometry: 
       - top=30mm
@@ -46,13 +46,13 @@ Repetera vad du gjorde vid laboration 1 och vilka metoder du använder för att 
 :::
 
 
-# 1. Centrala gränsvärdessatsen
+# 1. Centrala gränsvärdessatsen{.unnumbered}
 
 > Adderar man (eller beräknar medelvärdet) av flera oberoende normalfördelade slumpvariabler är summan också normalfördelad. Men vad händer om man lägger ihop flera variabler som alla är rektangelfördelade? Vilken fördelning fås om man adderar exponentialfördelade variabler?
 >
 > Centrala gränsvärdessatsen (CGS) säger att om man adderar ett stort antal oberoende variabler från en godtycklig fördelning blir summan (eller medelvärdet) normalfördelad. I formler: om $n$ är tillräckligt stort gäller att $Z_n = X_1 + X_2 + \ldots + X_n$ är approximativt normalfördelad oavsett vilket fördelning $X_1, \ldots, X_n$ har. Med några simuleringar ska du undersöka om detta tycks stämma, där vi utgår från några olika fördelningar för $X$-variablerna.
 
- 
+:::{.callout-note icon=false}
 ### Uppgift 1.1
 Simulera 1000 slumptal från en rektangelfördelning, $R(0, 1)$ och lägg dem i variabeln `unif1`. Använd `hist()` och `qqnorm()` för att konstatera att slumptalen är rektangelfördelade och definitivt inte passar till en normalfördelning.
 :::
@@ -63,7 +63,7 @@ hist(unif1)
 qqnorm(unif1)
 ```
 
- 
+:::{.callout-note icon=false}
 ### Uppgift 1.2
 Simulera 1000 nya slumptal från en rektangelfördelning, $R(0, 1)$ och lägg dem i variabeln `unif2`. Summera sedan de gamla och de nya slumptalen genom `sum12 <- unif1+unif2`. Resultatet är 1000 slumptal från $Z_2 = X_1 + X_2$. Använd `hist()` och `qqnorm()` för att undersöka fördelningen hos denna summa
 :::
@@ -75,7 +75,7 @@ sum12 <- unif1 + unif2
 ```
 
 
- 
+:::{.callout-note icon=false} 
 ### Uppgift 1.3
 Skapa fler slumpvariabler `unif3`, `unif4` och `unif5` på motsvarande sätt och studera fördelningen för $X_1+X_2+\ldots+X_5$.  Verkar det rimligt att ju större $n$ är, desto bättre kan fördelningen för summan anpassas till en normalfördelning?
 :::
@@ -88,7 +88,7 @@ sum12345 <- runif(1000,0,1) + runif(1000,0,1) + runif(1000,0,1) + runif(1000,0,1
 **Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
  
-
+:::{.callout-note icon=false}
 ### Uppgift 1.4
 Pröva vad som händer då du summerar exponentialfördelade slumvariabler med väntevärde 1 (`rexp(1000,1)`).  Hur många variabler behövs summeras innan summan kan approximeras med en normalfördelning?
 :::
@@ -109,7 +109,7 @@ qqline(sumn)
 
 **Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# 2. CGS i praktiken
+# 2. CGS i praktiken{.unnumbered}
 
 > På 35 patienter med Hodgkins sjukdom mätte man antalet T4 celler i blodet (antal/mm3). Samtidigt mätte man motsvarande antal hos 35 patienter som hade andra sjukdomar (Non-Hodgkins). Data ligger i filen `data/lab2_filer/Hodgkindata.RData`. Läs in data med `load()`. Du har nu fått två nya variabler Hodgkin och NonHodgkin.
 
@@ -117,7 +117,7 @@ qqline(sumn)
 load("data/lab2_filer/Hodgkindata.RData")
 ```
 
- 
+:::{.callout-note icon=false} 
 ### Uppgift 2.1
 Undersök om antalet celler i blodet är normalfördelat för de båda grupperna.
 :::
@@ -128,7 +128,7 @@ Undersök om antalet celler i blodet är normalfördelat för de båda grupperna
 
 **Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
- 
+:::{.callout-note icon=false} 
 ### Uppgift 2.2
 Det kan vara intressant att jämföra grupperna genom att bilda differensen mellan de två gruppmedelvärdena. Använd dig av centrala gränsvärdessatsen för att säga något om vilken fördelning differensen i stickprovsmedelvärden har.
 ::: 
@@ -147,7 +147,7 @@ $\delta \sim ...$ fyll i beskrivningen! Kolla med labhandledare att du har rätt
 
 
  
-
+:::{.callout-note icon=false}
 ### Uppgift 2.3
 Skatta parametrarna (väntevärde och varians) i fördelningen för differensen $\delta$. Ange värdet på parametrarna. 
 :::
@@ -160,14 +160,14 @@ Skatta parametrarna (väntevärde och varians) i fördelningen för differensen 
 
 <!-- fyll i värdena  -->
 
- 
+:::{.callout-note icon=false} 
 ### Uppgift 2.4
 Är det ett stort problem att antal celler i bloder inte är normalfördelad i de båda grupperna från början? Föreställ dig en situtation där det är ett problem och ge ett förslag på hur man kan åtgärda det?
 :::
 
 **Svar**: <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# 3. Provtagningstider - problemställningar från labbet
+# 3. Provtagningstider - problemställningar från labbet{.unnumbered}
 
 Målsättningen med denna uppgift är att du ska 
 
@@ -181,7 +181,7 @@ Målsättningen med denna uppgift är att du ska
 - träna på att skriftligt redovisa antaganden, modeller och
   slutsatser från en statistisk analys.
 
-## Bakgrund 
+## Bakgrund{.unnumbered}
 
 Vid vårt kemilaboratorium analyserar vi bland annat en rad prover från den näraliggande provtagningscentralen.
 Det har framkommit starka önskemål om att vissa patienter som tar prover ska kunna träffa en läkare vid samma besök och inte behöva boka in olika dagar för provtagning och läkarbesök.  För att detta önskemål ska uppfyllas måste vi förstås veta hur lång tid det tar från det att provet tagits på patienten till analyssvaret är klart och undersöka om det är rimligt att låta patienter vänta på provsvar samma dag.  Det finns flera moment att ta hänsyn till: provet kan få vänta på provtagningscentralen tills det blir hämtat till vårt laboratorium, det behövs en viss manuell handläggningstid av provet och slutligen har vi själva processtiden i maskinen.  Dessutom har vi lite olika hanteringstider beroende på vilken dag i veckan det är och om det är för- eller eftermiddag.
@@ -189,29 +189,37 @@ Det har framkommit starka önskemål om att vissa patienter som tar prover ska k
 I datafilerna `data/lab2_filer/proverfm24.RData` och `data/lab2_filer/proverem24.RData` finns det tider (minuter) som det tog "från patientarm till analyssvar".  Provet är på så kallad "allmän kemi" och, som ni märker, har vi har delat upp data i två filer, en för prover tagna på förmiddagen ´tidfm´ och en för prover tagna på eftermiddagen. ´tidem´. 
 När vi gör ett histogram på dessa data ser vi att de inte verkar följa en normalfördelning. Det verkar rimligt eftersom tid har en nedre begränsning. Det innebär att vi bör använda en lämplig fördelning för att modellera väntetider i denna uppgift. 
 
-## Uppgifter
+## Uppgifter{.unnumbered}
 
 ::: {.callout-tip}
 
 Läs igenom avsnitten Föreslagen arbetsgång och Instruktioner för rapportering före du löser uppgift 3.1 till 3.4
 :::
 
+:::{.callout-note icon=false}
 ### Uppgift 3.1. 
 Hur sannolikt är det att en förmiddagspatient får vänta mer än två timmar på analyssvar? 
+:::
 
+:::{.callout-note icon=false}
 ### Uppgift 3.2. 
 
 Vi vill kunna säga att 95\% av eftermiddagspatienterna kommer att ha sitt provsvar snabbare än $y$ minuter. Vad är den statistiska termen för $y$? Vilket värde har $y$ enligt den modell du har valt för eftermiddagsstider? 
+:::
 
+:::{.callout-note icon=false}
 ### Uppgift 3.3. 
 
 Det brukar vara något fler patienter på eftermiddagen jämfört med på förmiddagen. Låt oss anta att 60\,\% av patienter kommer på förmiddagen och resten på eftermiddagen. Hur troligt är det att ett patientprov, taget någon gång under dagen, tar mer än två timmar att analysera?
+:::
 
+:::{.callout-note icon=false}
 ### Uppgift 3.4. 
 
 Om vi har 25 patientprover på förmiddagen, vad är sannolikheten att **genomsnittstiden** för dessa 25 prov överstiger en timme?
+:::
 
-## Föreslagen arbetsgång
+## Föreslagen arbetsgång{.unnumbered}
 
 - Titta på data (histogram, empirisk fördelningsfunktion). Beräkna
   enkla mått (medelvärde, standardavvikelse).  Jämför förmiddags- och eftermiddagstider.
@@ -224,7 +232,7 @@ Om vi har 25 patientprover på förmiddagen, vad är sannolikheten att **genomsn
 
 - Fundera på vilken sannolikhetsfördelning som passar som modell för genomsnittstiden (medelvärdet) av 25 förmiddagstider. Ange vilket teoretiskt resultat (hänvisa till en känd sats) du använder för att motivera ditt val av modell! Använd de "enkla mått" du beräknade tidigare (medelvärde och standardavvikelse för stickprovet) för att skatta parametrar i din modell för genomsnittstiden. 
 
-## Instruktioner för rapportering
+## Instruktioner för rapportering{.unnumbered}
 
 Ange (om så är lämpligt):
 

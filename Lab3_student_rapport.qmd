@@ -9,7 +9,9 @@ abstract: |
   dra från analysen 
   - bekanta dig med lite av de funktioner som finns i R vad det
   gäller olika grundläggande statistiska test
-  - arbeta med kursens Miniprojekt II.
+  - träna på att med hjälp av ett insamlat material konstruera en rimlig statistisk modell samt göra en kritisk granskning av modellen och dess förmåga att beskriva verkligheten
+  - tillämpa dina kunskaper och med hjälp av R analysera ett biostatistiskt datamaterial
+  - träna på att skriftligt redovisa antaganden, modeller och slutsatser från en statistisk analys.
 author: 
   - name: "Skriv ditt namn här"
 date: today
@@ -54,7 +56,9 @@ Ladda in R-funktioner som behövs för laborationen. Dessa funktioner kommer fr�
 source("kod/funktioner_raknamedvariation_light.R")
 ```
 :::
-# Grundläggande begrepp vid hypotestestning
+
+
+# 1. Grundläggande begrepp vid hypotestestning{.unnumbered}
 
 > Läkemedel kan ge en nedsatt salivkörtelfunktion, vilket är en riskfaktor för karies och andra sjukdomar i munhålan.  På 7 slumpmässigt utvalda patienter som alla fick samma medicin mätte man under 5 minuter den så kallade tuggstimulerade saliven.  Normal mängd saliv under dessa förhållanden är 1 ml/min och muntorrhet anses föreligga när mängden saliv understiger 0.7 ml/min.  Som modell antog man att salivmängden är normalfördelad med väntevärde $\mu$ och standardavvikelse $\sigma$, där $\sigma$ anses vara 0.5 ml/min. Intressanta frågeställningar är t.ex.:
 > 
@@ -90,7 +94,11 @@ Använd rutinen `hypotes` för att illustrera testets kritiska område då teste
 :::
 
 ```{r}
-# skriv din R-kod här
+#| warning: false
+#| message: false
+
+hypotes(0.5, 7, 1, 0.5, '<')
+
 ```
 
 
@@ -102,11 +110,11 @@ som är gränsen till området. Hur har $k$ beräknats? Ställ upp den matematis
 
 **Ekvation för $k$**: <!-- ta bort detta och skriv uttrycket -->
 
-**Egen beräkning av $k$**:
 ```{r}
 # skriv din R-kod här
 ```
 
+**Egen beräkning av $k$**:
 
 :::{.callout-note icon=false}
 ### Uppgift 1.5
@@ -125,16 +133,20 @@ Vad är din konkreta tolkning av signifikansnivån $\alpha = 0.05$ i detta exemp
 
 :::{.callout-note icon=false}
 ### Uppgift 1.7
-Undersök hur det kritiska område ändras då du ändrar signifikansnivån till $\alpha = 0.01$.  Vad är din slutsats nu?
+Undersök hur det kritiska området ändras då du ändrar signifikansnivån till $\alpha = 0.01$.  Vad är din slutsats nu?
 :::
 
 ```{r}
+#| warning: false
+#| message: false
+
 # skriv din R-kod här
 ```
 
 **Svar:** <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# Testets styrka och styrkefunktion
+
+# 2. Testets styrka och styrkefunktion{.unnumbered}
 
 > Antag nu att genomsnittlig salivutsöndring i riskgruppen är 0.8.  Då är förstås $H_0: \mu = 1$ falsk och vi vill att vårt test ska upptäcka detta och förkasta denna hypotes till förmån för hypotesen $H_1: \mu < 1$.  Sannolikheten att testet verkligen klarar av detta kallas för testets styrka i punkten 0.8.  Använd rutinen `hypotes`  för att illustrera testets styrka i punkten 0.8.  Kommandot är nu `hypotes(`$\sigma$, $n$, $\mu_0$, $\alpha$, H1-riktn, sant $\mu$`)`, så i detta fall skriver du `hypotes(0.5, 7, 1, 0.05, '<', 0.8)`.
 
@@ -142,6 +154,8 @@ Undersök hur det kritiska område ändras då du ändrar signifikansnivån till
 #| fig-width: 7
 #| fig-height: 7
 #| out-width: 80%
+#| warning: false
+#| message: false
 hypotes(0.5, 7, 1, 0.05, '<', 0.8)
 ```
 
@@ -157,7 +171,7 @@ $$
 
 Observera att styrkan beror på värdet $\mu$. I detta exempel gäller att ju mindre $\mu$ är i förhållande till $\mu_0= 1$ desto större är chansen att testet ska upptäcka att $H_0$ inte gäller. Därför  är det intressant att studera styrkan som en funktion av $\mu$, denna funktion betecknas ofta $S(\mu)$.
 
-Rutinen \texttt{styrkefkn} ritar upp styrkefunktionen, kommandot är \texttt{styrkefkn($\sigma$, $n$,   $\mu_0$, $\alpha$, H1-riktn, sant $\mu$)} om du vill rita upp funktionen och markera ett speciellt $\mu$-värde.  Använd alltså kommandot `styrka(0.5, 7, 1, 0.05, '<', 0.8)`, vilket ger dig den tidigare figuren plus styrkan som en funktion av $\mu$.
+Kommandot `styrka(0.5, 7, 1, 0.05, '<', 0.8)` ger dig den tidigare figuren plus en graf av testets styrka som en funktion av $\mu$.
 :::
 
 ```{r}
@@ -171,9 +185,7 @@ styrka(0.5, 7, 1, 0.05, '<', 0.8)
 
 :::{.callout-note icon=false}
 ### Uppgift 2.2
-Uppskatta utifrån styrkefunktionen hur stor sannolikheten är att vi
-med vårt test kommer  upptäcka att en grupp som bör klassas som
-muntorra ($\mu= 0.7$) har en sänkt salivproduktion.
+Uppskatta utifrån styrkefunktionen hur stor sannolikheten är att vi med vårt test kommer  upptäcka att en grupp som bör klassas som muntorra ($\mu= 0.7$) har en sänkt salivproduktion.
 :::
 
 ```{r}
@@ -184,7 +196,7 @@ muntorra ($\mu= 0.7$) har en sänkt salivproduktion.
 
 :::{.callout-note icon=false}
 ### Uppgift 2.3
-Hur många patienter bör vi mäta på om vi med sannolikheten 0.95 verkligen ska upptäcka att muntorra har en sänkt salivproduktion? Tips: Testa med olika värden på $n$ i `styrkefkn`.
+Hur många patienter bör vi mäta på om vi med sannolikheten 0.95 verkligen ska upptäcka att muntorra har en sänkt salivproduktion? Tips: Testa med olika värden på $n$ i `styrka` och läs av ur grafen.
 :::
 
 ```{r}
@@ -207,16 +219,13 @@ Hur många patienter bör vi mäta på om vi med sannolikheten 0.95 verkligen sk
   2.2 Styrkan i punkten 0.7, S(0.7), kan enligt figuren uppskattas till 0.48  
   2.3 Det krävs $n=30$ patienter för att styrkan ska vara 0.95 i   punkten 0.7  
 
-## Några statistiska test med stickprov {.unnumbered}
 
-> Kortfattade svar till frågorna som ställs i uppgifterna finns i slutet på denna del av handledning.  Datamaterialen som används är albumin, bladklorofyll och dammar, vilka du hittar på Canvas.
-
-# Test av väntevärde i en population (t-test)
+# 3. Test av väntevärde i en population (t-test){.unnumbered}
 
 > En blandning av blodserum innehåller exakt 42 g albumin per liter. Två laboratorier (A och B) får göra sex bestämningar var av koncentrationen.  Vi vill undersöka om det finns någon systematisk avvikelse från det sanna värdet (42 g/l) i var och en av dessa två grupper. 
 
 ```{r}
-load("data/lab3_mini2_filer/albumin.RData")
+load("data/lab3_filer/albumin.RData")
 ```
 
 :::{.callout-note icon=false}
@@ -259,12 +268,12 @@ t.test(AlbuminB, mu=42, alternative="greater")
 **Svar:** <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
 
-# Jämförelse av väntevärden i två populationer (t-test vid  två oberoende stickprov)
+# 4. Jämförelse av väntevärden i två populationer (t-test vid  två oberoende stickprov){.unnumbered}
 
 > Alger i fick växa under ljusa respektive mörka förhållanden och därefter mättes klorofyllhalt.
 
 ```{r}
-load("data/lab3_mini2_filer/alger.RData")
+load("data/lab3_filer/alger.RData")
 ```
 
 :::{.callout-note icon=false}
@@ -281,12 +290,12 @@ boxplot(Alger$Klorofyll ~ Alger$Grupp)
 
 :::{.callout-note icon=false}
 ### Uppgift 4.2
-Sätt upp modell och hypoteser, och undersök med ett t-test om det finns skillnader i förväntad klorofyllhalt mellan de två grupperna. 
+Nedan visar vi hur man kan sätta upp modell och hypoteser, och undersök med ett t-test om det finns skillnader i förväntad klorofyllhalt mellan de två grupperna. Läs igenom och se till att du förstår modellen. 
 
-Detta kan man göra genom att lägga till gruppvariabeln i rutinen `t.test`. Tolka utskriften.
+Bekanta dig med hur rutinen `t.test` kan användas genom att lägga till gruppvariabeln. Se nedan. Lär dig att tolka utskriften från rutinen.
 :::
 
-**Modell:** Låt $X$ vara tillväxt hos alger i mörka förhållanden med väntevärde $\mu_x$ och varians $\sigma^2_x$, och $Y$ vara tillväxt hos alger i ljusa förhållanden med väntevärde $\mu_y$ och varians $\sigma^2_y$. Väntevärden skattas med stickprovsmedelvärden $\hat{\mu_x}=\bar{x}$ och $\hat{\mu_y}=\bar{y}$. Enligt centrala gränsvärdessatsen kommer skattningen av respektive väntevärde vara approximativt normalfördelad, d.v.s. $\bar{x} \overset{A}{\sim} N(\mu_x,\frac{\sigma_x}{\sqrt{n_x}})$ och $\bar{y} \overset{A}{\sim} N(\mu_y,\frac{\sigma_y}{\sqrt{n_y}})$. 
+**Modell:** Låt $X$ vara tillväxt hos alger i mörka förhållanden med väntevärde $\mu_x$ och varians $\sigma^2_x$, och $Y$ vara tillväxt hos alger i ljusa förhållanden med väntevärde $\mu_y$ och varians $\sigma^2_y$. Väntevärden skattas med stickprovsmedelvärden $\hat{\mu}_x=\bar{x}$ och $\hat{\mu}_y=\bar{y}$. Enligt centrala gränsvärdessatsen kommer skattningen av respektive väntevärde vara approximativt normalfördelad, d.v.s. $\bar{x} \overset{A}{\sim} N(\mu_x,\frac{\sigma_x}{\sqrt{n_x}})$ och $\bar{y} \overset{A}{\sim} N(\mu_y,\frac{\sigma_y}{\sqrt{n_y}})$. 
 
 **Hypoteser:** $H_0: \mu_x = \mu_y$ mot $H_1: \mu_x \neq \mu_y$ 
 
@@ -301,7 +310,7 @@ t.test(Alger$Klorofyll ~ Alger$Grupp)
 ### Uppgift 4.3
 Om vi inte säger något annat förutsätter rutinen `t.test` att varianserna i de två grupperna, d.v.s. $\sigma^2_x$ och $\sigma^2_y$ är **olika** och kompenserar för det. Om vi vet (eller antar) att varianserna är lika, kan vi utnyttja det för att få högre frihetsgrader eftersom det är en parameter färre att skatta. 
 
-Undersök om varianserna är lika med ett så kallat $\chi^2$-test. Det gör man i R genom rutinen `var.test`. Tolka utskriften! 
+Undersök om varianserna är lika med ett så kallat $\chi^2$-test. Nedan visar vi hur man kan formulera hypoteser för att testa lika varians. Testet kan utföras i R genom rutinen `var.test`. Tolka utskriften! 
 :::
 
 **Hypoteser**: $H_0: \sigma^2_x = \sigma^2_y$ mot $H_1: \sigma^2_x \neq \sigma^2_y$
@@ -314,7 +323,7 @@ var.test(Alger$Klorofyll ~ Alger$Grupp)
 
 :::{.callout-note icon=false}
 ### Uppgift 4.4
-Gör om t-testet där du antar att varianser är lika genom att lägga till `var.equal=TRUE` i R-rutien. Vad blir dina slutsatser nu? 
+Gör om t-testet i uppgift 4.2 där du antar att varianser är lika genom att lägga till `var.equal=TRUE` i R-rutinen. Vad blir dina slutsatser nu? 
 :::
 
 **Antagande**: $\sigma^2=\sigma^2_x = \sigma^2_y$
@@ -325,21 +334,26 @@ t.test(Alger$Klorofyll ~ Alger$Grupp, var.equal=TRUE)
 
 **Svar:** <!-- ta bort detta och skriv dina slutsatser i enkel text -->
 
-# Test vid matchade data (stickprov i par)
+
+# 5. Test vid matchade data (stickprov i par){.unnumbered}
 
 > Det har gjorts mätningar av kvävebelastning under vår respektive sommar på ett antal dammar.  Om man vill jämföra kvävebelastningen mellan de två årstiderna är en rimlig modell "stickprov i par". 
 
 ```{r}
-load("data/lab3_mini2_filer/dammar.RData")
+load("data/lab3_filer/dammar.RData")
 ```
 
 ```{r}
-boxplot(Dammar$N_belast_V, Dammar$N_belast_S)
+boxplot(Dammar$N_belast_V, Dammar$N_belast_S,
+        ylab = "kvävebelastning",
+        xlab = "Årstid",
+        names = c("Vår","Sommar"))
 ```
 
 
 ```{r}
-boxplot(Dammar$N_belast_V-Dammar$N_belast_S)
+boxplot(Dammar$N_belast_V-Dammar$N_belast_S,
+        main = "skillnad i kvävebelastning vår-sommar")
 abline(a=0,b=0,col='blue')
 ```
 
@@ -352,7 +366,7 @@ Finns det en skillnad i väntevärden mellan vår och sommar?
 
 Vi testar det med följande **hypoteser:** $H_0: \mu = 0$ mot $H_1: \mu \neq 0$
 
-Detta är ett vanligt test och man behöver inte räkna ut ett nytt stickprov. För att tala om för `t.test` att data är matchade i par lägger man till paired=TRUE som argument.
+Detta är ett vanligt test och man behöver inte räkna ut ett nytt stickprov för att köra rutinen i R. För att tala om för `t.test` att data är matchade i par lägger man till `paired=TRUE` som argument.
 :::
 
 
@@ -370,3 +384,61 @@ t.test(Dammar$N_belast_V, Dammar$N_belast_S, paired=TRUE)
   4.3 Varianserna är inte olika (p-värde$=0.48$)  
   4.4 t-test: p-värde$=0.009$;  Vi kan påvisa en skillnad i klorofyll.  
   5.1 p-värde$=0.262$ Vi kan inte påvisa någon skillnad  
+
+
+# 6. Hade vår aktiveringskampanj effekt?{.unnumbered}
+
+
+## Problemställningar i studien{.unnumbered}
+De flesta forskare anser att hög kolesterolhalt i blodet är en riskfaktor för hjärt- och kärlsjukdomar.  I en studie ville vi undersöka om man genom ett aktiveringsprogram bestående av flera faktorer (rökstopp, mental och fysisk träning) kan minska halten av kolesterol.  Vi utgick från en grupp med 40 rökande män som samtliga hade något förhöjda kolesterolhalter i blodet.  Av dessa 40 valde vi slumpmässigt ut 20 (A-grupp) som fick genomgå vårt aktiveringsprogram.
+
+De övriga 20 (B-grupp) levde som vanligt, åtminstone såsom vi uppfattade det.  Efter ett halvår mätte vi kolesterolhalten (mmol/l) på samtliga 40 män igen.
+
+I filen `blodprov.Rdata` finns samtliga data och variablerna heter ´Afore´,  ´Aefter´, ´Bfore´ samt ´Befter´. 
+
+## Frågor{.unnumbered}
+
+:::{.callout-note icon=false}
+### Fråga 6.1 
+
+Eftersom vi slumpmässigt valt ut de 20 som ska genomgå  aktiveringsprogrammet bör det inte finnas några skillnader mellan   A- och B-gruppen beträffande genomsnittlig kolesterolhalt **innan** studien börjar. Vi vill verkligen försäkra oss om detta så vi inte från början introducerar en systematisk skillnad mellan grupperna.  
+
+Finns en skillnad mellan grupperna? Undersök med lämpligt statistiskt test.
+:::
+
+:::{.callout-note icon=false}
+### Fråga 6.2 
+
+Har den förväntade kolesterolhalten minskat hos grupp A? Undersök med lämpligt statistiskt test.
+:::
+
+:::{.callout-note icon=false}
+### Fråga 6.3 
+
+Det är inte otroligt att patienterna i grupp B, även om de inte genomgår aktiveringsprogrammet, ändå påverkas i sin kolesterolhalt eftersom uppmärksamhet kring frågorna kan ge effekt (en så kallad placebo-effekt).
+ 
+Verkar det vara så i vår undersökning? Undersök om det finns en skillnad i kolesterol hos patienterna i grupp B före och efter programmet, med lämpligt statistiskt test.
+:::
+
+:::{.callout-note icon=false}
+### Fråga 6.4
+
+Den övergripande frågan är om aktiveringsprogrammet sänkte den förväntade kolesterolhalten hos grupp A. Undersök med lämpligt statistiskt test om aktiveringsprogrammet har påverkat de två grupperna på olika sätt? 
+:::
+
+
+## Instruktioner för rapportering i del 6{.unnumbered}
+
+Ange (om så är lämpligt):
+
+  - vilka antaganden du gör om data,
+  
+  - vilka modeller du ställer upp,
+  
+  - vilka hypoteser du testar,
+  
+  - vilka satser du använder
+
+- Redovisa resultat av analysen och vilka tolkningar och slutsatser du gör.
+
+- För att bli godkänd på del 6, ska du undvika hänvisa till R-kod för att beskriva vad du har gjort.
