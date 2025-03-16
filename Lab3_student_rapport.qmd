@@ -5,10 +5,8 @@ abstract: |
   Syftet med dagens laboration är att du ska
  
   -  träna på de grundläggande begreppen inom hypotesprövning
-  (t.ex. signifikansnivå och styrka) samt vilka slutsatser man kan
-  dra från analysen 
-  - bekanta dig med lite av de funktioner som finns i R vad det
-  gäller olika grundläggande statistiska test
+  (t.ex. signifikansnivå och styrka) samt vilka slutsatser man kan dra från analysen 
+  - bekanta dig med lite av de funktioner som finns i R vad det gäller olika grundläggande statistiska test
   - träna på att med hjälp av ett insamlat material konstruera en rimlig statistisk modell samt göra en kritisk granskning av modellen och dess förmåga att beskriva verkligheten
   - tillämpa dina kunskaper och med hjälp av R analysera ett biostatistiskt datamaterial
   - träna på att skriftligt redovisa antaganden, modeller och slutsatser från en statistisk analys.
@@ -314,6 +312,7 @@ Undersök om varianserna är lika med ett så kallat $\chi^2$-test. Nedan visar 
 :::
 
 **Hypoteser**: $H_0: \sigma^2_x = \sigma^2_y$ mot $H_1: \sigma^2_x \neq \sigma^2_y$
+
 ```{r}
 var.test(Alger$Klorofyll ~ Alger$Grupp)
 ```

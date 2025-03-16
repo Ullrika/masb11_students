@@ -230,7 +230,7 @@ Om vi har 25 patientprover på förmiddagen, vad är sannolikheten att **genomsn
 
 - Svara på frågorna (3.1)--(3.3) genom att utnyttja de anpassade modellerna (sannolikhetsfördelningarna) för för- respektive eftermiddagstider.
 
-- Fundera på vilken sannolikhetsfördelning som passar som modell för genomsnittstiden (medelvärdet) av 25 förmiddagstider. Ange vilket teoretiskt resultat (hänvisa till en känd sats) du använder för att motivera ditt val av modell! Använd de "enkla mått" du beräknade tidigare (medelvärde och standardavvikelse för stickprovet) för att skatta parametrar i din modell för genomsnittstiden. 
+- För att svara på fråga 3.4, fundera på vilken sannolikhetsfördelning som passar som modell för genomsnittstiden (medelvärdet) av 25 förmiddagstider. Ange vilket teoretiskt resultat (hänvisa till en känd sats) du använder för att motivera ditt val av modell! Använd de "enkla mått" du beräknade tidigare (medelvärde och standardavvikelse för stickprovet) för att skatta parametrar i din modell för genomsnittstiden. 
 
 ## Instruktioner för rapportering{.unnumbered}
 
