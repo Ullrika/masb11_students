@@ -1,6 +1,6 @@
 ---
 title: "Introduktion till att använda R med Quarto" # detta är kommentaren. 
-subtitle: "MASB11 VT 24" # kommentarer kommer inte att synas i rapporten
+subtitle: "MASB11 VT 25" # kommentarer kommer inte att synas i rapporten
 execute: 
   echo: true    #använd för att se/dölja R-kod i rapporten
 number-sections: true #sektioner kan numreras automatiskt
